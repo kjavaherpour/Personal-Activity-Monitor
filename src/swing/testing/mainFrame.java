@@ -6,6 +6,8 @@
 
 package swing.testing;
 
+import java.awt.Dimension;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +19,12 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -237,9 +245,12 @@ public final class mainFrame extends javax.swing.JFrame {
         addButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        myMenuBar = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        editMenu = new javax.swing.JMenu();
+        aboutMenu = new javax.swing.JMenu();
+        usageMenuItem = new javax.swing.JMenuItem();
+        authorMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log View");
@@ -299,13 +310,33 @@ public final class mainFrame extends javax.swing.JFrame {
 
         saveButton.setText("Save");
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        fileMenu.setText("File");
+        myMenuBar.add(fileMenu);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        editMenu.setText("Edit");
+        myMenuBar.add(editMenu);
 
-        setJMenuBar(jMenuBar1);
+        aboutMenu.setText("About");
+
+        usageMenuItem.setText("Usage");
+        usageMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usageMenuItemActionPerformed(evt);
+            }
+        });
+        aboutMenu.add(usageMenuItem);
+
+        authorMenuItem.setText("Author");
+        authorMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorMenuItemActionPerformed(evt);
+            }
+        });
+        aboutMenu.add(authorMenuItem);
+
+        myMenuBar.add(aboutMenu);
+
+        setJMenuBar(myMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -438,7 +469,87 @@ public final class mainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_RightButtonActionPerformed
+
+    private void usageMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usageMenuItemActionPerformed
+        // TODO add your handling code here:
+        launchAbout();
+    }//GEN-LAST:event_usageMenuItemActionPerformed
+
+    private void authorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorMenuItemActionPerformed
+        // TODO add your handling code here:
+        launchAuthor();
+    }//GEN-LAST:event_authorMenuItemActionPerformed
     
+    private void launchAuthor(){
+        
+        JFrame authorFrame = new JFrame("Author");
+        authorFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        authorFrame.setVisible(true);
+        authorFrame.setSize(400,400);
+        
+        ImageIcon ricky = createImageIcon("../ricky", "Ricky Sidhu");
+        ImageIcon kam = createImageIcon("kam", "Kamron Javaherpour");
+        
+        JLabel rickyPic = new JLabel(ricky);
+        JLabel kamPic = new JLabel(kam);
+        
+        rickyPic.setVisible(true);
+        kamPic.setVisible(true);
+        rickyPic.setPreferredSize(new Dimension(300,100));
+        kamPic.setPreferredSize(new Dimension(300,100));
+        
+        
+        authorFrame.add(rickyPic);
+        authorFrame.add(kamPic);
+        
+        
+        JTextArea authorArea = new JTextArea("Authors: Ricky Sidhu, Kamron Javaherpour\n"
+                + "Design and Development: Ricky Sidhu, Kamron Javaherpour\n"
+                + "Implementation and Testing: Ricky Sidhu, Kamron Javaherpour\n"
+                + "Contact: ricky@dearsaturn.com kam.javaherpour@gmail.com");
+        authorArea.setVisible(true); 
+        authorArea.setEditable(false);
+        authorArea.setLineWrap(true);
+        authorArea.setWrapStyleWord(true);
+        
+        authorFrame.add(authorArea);
+    }
+    
+    protected ImageIcon createImageIcon(String path, String description) {
+    java.net.URL imgURL = this.getClass().getResource(path);
+    
+    if (imgURL != null) {
+        return new ImageIcon(imgURL, description);
+    } else {
+        System.err.println("Couldn't find file: " + path);
+        return null;
+    }
+}
+    
+    private void launchAbout(){
+        
+        JFrame aboutFrame = new JFrame("Usage");
+        aboutFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        aboutFrame.setVisible(true);
+        aboutFrame.setSize(400,400);
+        
+        JTextArea aboutArea = new JTextArea("Personal Activity Monitor, version 0.1\n\n"
+                + "The previous and next buttons let you browse between different days, or weeks,"
+                + " depending on which view you are in.\n\nThe day view shows the activities that you"
+                + " did on the given day.\n\nThe week shows you a summary of your activities for that week.\n\n"
+                + "The log view is the most descriptive, as it shows all the activities stored by"
+                + " the personal activity monitor. It is also the best representation of the"
+                + " format the data is stored in.\n\n"
+                + "The diary allows you to take notes, or write about your experiences using the Activity Monitor."
+                + " It saves your entry, and opens it when it is ready to be edited.");
+        
+        aboutArea.setVisible(true); 
+        aboutArea.setEditable(false);
+        aboutArea.setLineWrap(true);
+        aboutArea.setWrapStyleWord(true);
+        aboutFrame.add(aboutArea);
+        
+    }
 
     /**
      * @param args the command line arguments
@@ -478,17 +589,20 @@ public final class mainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LeftButton;
     private javax.swing.JButton RightButton;
+    private javax.swing.JMenu aboutMenu;
     private javax.swing.JButton addButton;
+    private javax.swing.JMenuItem authorMenuItem;
     private javax.swing.JButton dayViewButton;
     private javax.swing.JButton diaryButton;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu editMenu;
+    private javax.swing.JMenu fileMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JButton logButton;
+    private javax.swing.JMenuBar myMenuBar;
     private javax.swing.JButton removeButton;
     private javax.swing.JButton saveButton;
+    private javax.swing.JMenuItem usageMenuItem;
     private javax.swing.JButton weekViewButton;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel tableModel;
