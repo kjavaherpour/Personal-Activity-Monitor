@@ -6,6 +6,8 @@
 
 package swing.testing;
 
+import java.awt.Dimension;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +19,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -484,14 +487,17 @@ public final class mainFrame extends javax.swing.JFrame {
         authorFrame.setVisible(true);
         authorFrame.setSize(400,400);
         
-        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
-        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
+        ImageIcon ricky = createImageIcon("../ricky", "Ricky Sidhu");
+        ImageIcon kam = createImageIcon("kam", "Kamron Javaherpour");
         
         JLabel rickyPic = new JLabel(ricky);
         JLabel kamPic = new JLabel(kam);
         
         rickyPic.setVisible(true);
         kamPic.setVisible(true);
+        rickyPic.setPreferredSize(new Dimension(300,100));
+        kamPic.setPreferredSize(new Dimension(300,100));
+        
         
         authorFrame.add(rickyPic);
         authorFrame.add(kamPic);
@@ -510,7 +516,8 @@ public final class mainFrame extends javax.swing.JFrame {
     }
     
     protected ImageIcon createImageIcon(String path, String description) {
-    java.net.URL imgURL = getClass().getResource(path);
+    java.net.URL imgURL = this.getClass().getResource(path);
+    
     if (imgURL != null) {
         return new ImageIcon(imgURL, description);
     } else {
