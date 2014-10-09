@@ -18,7 +18,7 @@ import javax.swing.*;
  *
  * @author Ricky
  */
-public class SwingTesting {
+public class Main {
 
     /**
      * @param args the command line arguments
