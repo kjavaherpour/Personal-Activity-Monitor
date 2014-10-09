@@ -484,18 +484,18 @@ public final class mainFrame extends javax.swing.JFrame {
         authorFrame.setVisible(true);
         authorFrame.setSize(400,400);
         
-//        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
-//        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
-//        
-//        JLabel rickyPic = new JLabel(ricky);
-//        JLabel kamPic = new JLabel(kam);
-//        
-//        rickyPic.setVisible(true);
-//        kamPic.setVisible(true);
-//        
-//        authorFrame.add(rickyPic);
-//        authorFrame.add(kamPic);
-//        
+        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
+        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
+        
+        JLabel rickyPic = new JLabel(ricky);
+        JLabel kamPic = new JLabel(kam);
+        
+        rickyPic.setVisible(true);
+        kamPic.setVisible(true);
+        
+        authorFrame.add(rickyPic);
+        authorFrame.add(kamPic);
+        
         
         JTextArea authorArea = new JTextArea("Authors: Ricky Sidhu, Kamron Javaherpour\n"
                 + "Design and Development: Ricky Sidhu, Kamron Javaherpour\n"
@@ -509,18 +509,18 @@ public final class mainFrame extends javax.swing.JFrame {
         authorFrame.add(authorArea);
     }
     
-//    protected ImageIcon createImageIcon(String path,
-//                                           String description) {
-//    java.net.URL imgURL = getClass().getResource(path);
-//    if (imgURL != null) {
-//        return new ImageIcon(imgURL, description);
-//    } else {
-//        System.err.println("Couldn't find file: " + path);
-//        return null;
-//    }
-//}
+    protected ImageIcon createImageIcon(String path, String description) {
+    java.net.URL imgURL = getClass().getResource(path);
+    if (imgURL != null) {
+        return new ImageIcon(imgURL, description);
+    } else {
+        System.err.println("Couldn't find file: " + path);
+        return null;
+    }
+}
     
     private void launchAbout(){
+        
         JFrame aboutFrame = new JFrame("Usage");
         aboutFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         aboutFrame.setVisible(true);
@@ -535,6 +535,7 @@ public final class mainFrame extends javax.swing.JFrame {
                 + " format the data is stored in.\n\n"
                 + "The diary allows you to take notes, or write about your experiences using the Activity Monitor."
                 + " It saves your entry, and opens it when it is ready to be edited.");
+        
         aboutArea.setVisible(true); 
         aboutArea.setEditable(false);
         aboutArea.setLineWrap(true);
