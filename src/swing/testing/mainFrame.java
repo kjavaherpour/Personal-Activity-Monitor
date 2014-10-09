@@ -9,6 +9,8 @@ package swing.testing;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ricky
  */
-public class mainFrame extends javax.swing.JFrame {
+public final class mainFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form mainFrame
@@ -103,18 +105,20 @@ public class mainFrame extends javax.swing.JFrame {
     public void weekViewLoader(){
         LeftButton.setEnabled(true);
         RightButton.setEnabled(true);
-        setTitle("Week " + Integer.toString(weekNumber));
+        if(weekNumber == 1) setTitle("Week of Sep 29 - Oct 5");
+        else if(weekNumber == 2) setTitle("Week of Oct 6 - Oct 12");
+        else if(weekNumber == 3) setTitle("Week of Oct 13 - Oct 19");
         String[] col = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         tableModel = new DefaultTableModel(col, 0);
         
         //Construct the lists for holding column items
-        ArrayList<Activity> monday = new ArrayList<Activity>();
-        ArrayList<Activity> tuesday = new ArrayList<Activity>();
-        ArrayList<Activity> wednesday = new ArrayList<Activity>();
-        ArrayList<Activity> thursday = new ArrayList<Activity>();
-        ArrayList<Activity> friday = new ArrayList<Activity>();
-        ArrayList<Activity> saturday = new ArrayList<Activity>();
-        ArrayList<Activity> sunday = new ArrayList<Activity>();
+        ArrayList<Activity> monday = new ArrayList<>();
+        ArrayList<Activity> tuesday = new ArrayList<>();
+        ArrayList<Activity> wednesday = new ArrayList<>();
+        ArrayList<Activity> thursday = new ArrayList<>();
+        ArrayList<Activity> friday = new ArrayList<>();
+        ArrayList<Activity> saturday = new ArrayList<>();
+        ArrayList<Activity> sunday = new ArrayList<>();
         ArrayList[] week = {monday, tuesday, wednesday, thursday, friday, saturday, sunday};
         
         //Populate the columns
@@ -184,7 +188,7 @@ public class mainFrame extends javax.swing.JFrame {
     
     public void arrayListLoader(){
         
-        activities = new ArrayList<Activity>();
+        activities = new ArrayList<>();
         BufferedReader bufferedReader = null;
         File file = new File("data.txt");
         
@@ -206,8 +210,7 @@ public class mainFrame extends javax.swing.JFrame {
             }
             bufferedReader.close();
         }
-        catch(Exception e){
-            e.printStackTrace();
+        catch(IOException | ParseException | NumberFormatException e){
         }
         Collections.sort(activities);
         currentDate = activities.get(0).getDate();
@@ -231,6 +234,9 @@ public class mainFrame extends javax.swing.JFrame {
         diaryButton = new javax.swing.JButton();
         LeftButton = new javax.swing.JButton();
         RightButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -273,19 +279,25 @@ public class mainFrame extends javax.swing.JFrame {
             }
         });
 
-        LeftButton.setText("<-");
+        LeftButton.setText("Previous");
         LeftButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LeftButtonActionPerformed(evt);
             }
         });
 
-        RightButton.setText("->");
+        RightButton.setText("Next");
         RightButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RightButtonActionPerformed(evt);
             }
         });
+
+        addButton.setText("Add");
+
+        removeButton.setText("Remove");
+
+        saveButton.setText("Save");
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -301,29 +313,41 @@ public class mainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LeftButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(RightButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(weekViewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(dayViewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(logButton, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                        .addComponent(diaryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LeftButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(RightButton))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(weekViewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dayViewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(logButton, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                            .addComponent(diaryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(removeButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(saveButton))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {LeftButton, RightButton, dayViewButton, diaryButton, logButton, weekViewButton});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {LeftButton, RightButton, addButton, dayViewButton, diaryButton, logButton, removeButton, saveButton, weekViewButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LeftButton)
+                            .addComponent(RightButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
                         .addComponent(dayViewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(weekViewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,16 +356,17 @@ public class mainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(diaryButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LeftButton)
+                        .addComponent(addButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RightButton)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(removeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dayViewButton, weekViewButton});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {LeftButton, RightButton, diaryButton, logButton});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {LeftButton, RightButton, addButton, diaryButton, logButton, removeButton, saveButton});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -453,6 +478,7 @@ public class mainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LeftButton;
     private javax.swing.JButton RightButton;
+    private javax.swing.JButton addButton;
     private javax.swing.JButton dayViewButton;
     private javax.swing.JButton diaryButton;
     private javax.swing.JMenu jMenu1;
@@ -461,6 +487,8 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JButton logButton;
+    private javax.swing.JButton removeButton;
+    private javax.swing.JButton saveButton;
     private javax.swing.JButton weekViewButton;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel tableModel;
