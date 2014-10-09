@@ -17,7 +17,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
@@ -482,15 +484,41 @@ public final class mainFrame extends javax.swing.JFrame {
         authorFrame.setVisible(true);
         authorFrame.setSize(400,400);
         
-        JTextArea authorArea = new JTextArea("Authors: Ricky Sidhu, Kamron Javaherpour \n"
+//        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
+//        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
+//        
+//        JLabel rickyPic = new JLabel(ricky);
+//        JLabel kamPic = new JLabel(kam);
+//        
+//        rickyPic.setVisible(true);
+//        kamPic.setVisible(true);
+//        
+//        authorFrame.add(rickyPic);
+//        authorFrame.add(kamPic);
+//        
+        
+        JTextArea authorArea = new JTextArea("Authors: Ricky Sidhu, Kamron Javaherpour\n"
                 + "Design and Development: Ricky Sidhu, Kamron Javaherpour\n"
-                + "Implementation and Testing: Ricky Sidhu, Kamron Javaherpour\n");
+                + "Implementation and Testing: Ricky Sidhu, Kamron Javaherpour\n"
+                + "Contact: ricky@dearsaturn.com kam.javaherpour@gmail.com");
         authorArea.setVisible(true); 
         authorArea.setEditable(false);
         authorArea.setLineWrap(true);
         authorArea.setWrapStyleWord(true);
+        
         authorFrame.add(authorArea);
     }
+    
+//    protected ImageIcon createImageIcon(String path,
+//                                           String description) {
+//    java.net.URL imgURL = getClass().getResource(path);
+//    if (imgURL != null) {
+//        return new ImageIcon(imgURL, description);
+//    } else {
+//        System.err.println("Couldn't find file: " + path);
+//        return null;
+//    }
+//}
     
     private void launchAbout(){
         JFrame aboutFrame = new JFrame("Usage");
@@ -498,13 +526,15 @@ public final class mainFrame extends javax.swing.JFrame {
         aboutFrame.setVisible(true);
         aboutFrame.setSize(400,400);
         
-        JTextArea aboutArea = new JTextArea("This is version 0.1 of personal activity monitor."
-                + "The previous and next let you browse between different days, or weeks,"
-                + " depending on which day you are in. The day view shows the activity that you"
-                + " did on the given day. The week shows you a summary of your activities for that week."
-                + " The log view is the most descriptive, as it shows all the activities stored by"
+        JTextArea aboutArea = new JTextArea("Personal Activity Monitor, version 0.1\n\n"
+                + "The previous and next buttons let you browse between different days, or weeks,"
+                + " depending on which view you are in.\n\nThe day view shows the activities that you"
+                + " did on the given day.\n\nThe week shows you a summary of your activities for that week.\n\n"
+                + "The log view is the most descriptive, as it shows all the activities stored by"
                 + " the personal activity monitor. It is also the best representation of the"
-                + " format the data is stored in.");
+                + " format the data is stored in.\n\n"
+                + "The diary allows you to take notes, or write about your experiences using the Activity Monitor."
+                + " It saves your entry, and opens it when it is ready to be edited.");
         aboutArea.setVisible(true); 
         aboutArea.setEditable(false);
         aboutArea.setLineWrap(true);
