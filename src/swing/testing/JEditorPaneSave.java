@@ -13,16 +13,6 @@ public class JEditorPaneSave implements ActionListener {
       (new JEditorPaneSave()).run();
    }
    
-   public void saveOnClose(){
-       try{
-       FileWriter out = new FileWriter("diary.txt");
-       out.write(myPane.getText());
-       out.close();
-       }catch(Exception e){
-           e.printStackTrace();
-       }
-   }
-   
    public void run() {
        
       myFrame = new JFrame("Diary");

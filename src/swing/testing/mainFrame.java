@@ -17,6 +17,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -237,9 +240,12 @@ public final class mainFrame extends javax.swing.JFrame {
         addButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        myMenuBar = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        editMenu = new javax.swing.JMenu();
+        aboutMenu = new javax.swing.JMenu();
+        usageMenuItem = new javax.swing.JMenuItem();
+        authorMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log View");
@@ -299,13 +305,33 @@ public final class mainFrame extends javax.swing.JFrame {
 
         saveButton.setText("Save");
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        fileMenu.setText("File");
+        myMenuBar.add(fileMenu);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        editMenu.setText("Edit");
+        myMenuBar.add(editMenu);
 
-        setJMenuBar(jMenuBar1);
+        aboutMenu.setText("About");
+
+        usageMenuItem.setText("Usage");
+        usageMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usageMenuItemActionPerformed(evt);
+            }
+        });
+        aboutMenu.add(usageMenuItem);
+
+        authorMenuItem.setText("Author");
+        authorMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorMenuItemActionPerformed(evt);
+            }
+        });
+        aboutMenu.add(authorMenuItem);
+
+        myMenuBar.add(aboutMenu);
+
+        setJMenuBar(myMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -438,7 +464,36 @@ public final class mainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_RightButtonActionPerformed
+
+    private void usageMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usageMenuItemActionPerformed
+        // TODO add your handling code here:
+        launchAbout();
+    }//GEN-LAST:event_usageMenuItemActionPerformed
+
+    private void authorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_authorMenuItemActionPerformed
     
+    private void launchAbout(){
+        JFrame aboutFrame = new JFrame("Usage");
+        aboutFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        aboutFrame.setVisible(true);
+        aboutFrame.setSize(400,400);
+        
+        JTextArea aboutArea = new JTextArea("This is version 0.1 of personal activity monitor."
+                + "The previous and next let you browse between different days, or weeks,"
+                + " depending on which day you are in. The day view shows the activity that you"
+                + " did on the given day. The week shows you a summary of your activities for that week."
+                + " The log view is the most descriptive, as it shows all the activities stored by"
+                + " the personal activity monitor. It is also the best representation of the"
+                + " format the data is stored in.");
+        aboutArea.setVisible(true); 
+        aboutArea.setEditable(false);
+        aboutArea.setLineWrap(true);
+        aboutArea.setWrapStyleWord(true);
+        aboutFrame.add(aboutArea);
+        
+    }
 
     /**
      * @param args the command line arguments
@@ -478,17 +533,20 @@ public final class mainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LeftButton;
     private javax.swing.JButton RightButton;
+    private javax.swing.JMenu aboutMenu;
     private javax.swing.JButton addButton;
+    private javax.swing.JMenuItem authorMenuItem;
     private javax.swing.JButton dayViewButton;
     private javax.swing.JButton diaryButton;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu editMenu;
+    private javax.swing.JMenu fileMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JButton logButton;
+    private javax.swing.JMenuBar myMenuBar;
     private javax.swing.JButton removeButton;
     private javax.swing.JButton saveButton;
+    private javax.swing.JMenuItem usageMenuItem;
     private javax.swing.JButton weekViewButton;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel tableModel;
