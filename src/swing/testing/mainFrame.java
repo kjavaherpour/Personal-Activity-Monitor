@@ -472,7 +472,25 @@ public final class mainFrame extends javax.swing.JFrame {
 
     private void authorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorMenuItemActionPerformed
         // TODO add your handling code here:
+        launchAuthor();
     }//GEN-LAST:event_authorMenuItemActionPerformed
+    
+    private void launchAuthor(){
+        
+        JFrame authorFrame = new JFrame("Author");
+        authorFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        authorFrame.setVisible(true);
+        authorFrame.setSize(400,400);
+        
+        JTextArea authorArea = new JTextArea("Authors: Ricky Sidhu, Kamron Javaherpour \n"
+                + "Design and Development: Ricky Sidhu, Kamron Javaherpour\n"
+                + "Implementation and Testing: Ricky Sidhu, Kamron Javaherpour\n");
+        authorArea.setVisible(true); 
+        authorArea.setEditable(false);
+        authorArea.setLineWrap(true);
+        authorArea.setWrapStyleWord(true);
+        authorFrame.add(authorArea);
+    }
     
     private void launchAbout(){
         JFrame aboutFrame = new JFrame("Usage");
