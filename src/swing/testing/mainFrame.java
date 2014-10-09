@@ -82,7 +82,7 @@ public final class mainFrame extends javax.swing.JFrame {
     public void dayViewLoader(){       
         LeftButton.setEnabled(true);
         RightButton.setEnabled(true);
-        setTitle(new SimpleDateFormat("MMM dd yyyy").format(currentDate));
+        setTitle(new SimpleDateFormat("EEE, MMM dd yyyy").format(currentDate));
         String[] col = {"Activity", "Time", "Length Of Time"};
         tableModel = new DefaultTableModel(col, 0);
         for(Activity activity: activities){
