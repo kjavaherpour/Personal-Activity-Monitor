@@ -196,6 +196,12 @@ public final class mainFrame extends javax.swing.JFrame {
         
     }
     
+    public void arrayListUploader(){
+        //Sorts array list by date, writes to file
+    }
+    
+    //Password functionality for 1 user
+    
     public void arrayListLoader(){
         
         activities = new ArrayList<>();
