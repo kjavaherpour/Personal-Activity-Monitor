@@ -1,6 +1,11 @@
 package swing.testing;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+/**
+ *
+ * @author Ricky Sidhu
+ * @author Kamron Javaherpour
+ */
 public class Activity implements Comparable<Activity>{
     private String name;
     private Date date;
@@ -32,6 +37,10 @@ public class Activity implements Comparable<Activity>{
         return date;
     }
     
+    /**
+     * This is a string for simplicity purposes. getDate() returns an actual java Date.
+     * @return 
+     */
     public String getDateString() {
         return new SimpleDateFormat("MMM dd yyyy").format(date);
     }

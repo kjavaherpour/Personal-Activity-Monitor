@@ -10,7 +10,8 @@ import javax.swing.*;
 
 /**
  *
- * @author Ricky
+ * @author Ricky Sidhu
+ * @author Kamron Javaherpour
  */
 public class Main {
 
