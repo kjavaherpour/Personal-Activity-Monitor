@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -205,6 +206,19 @@ public final class mainFrame extends javax.swing.JFrame {
     }
     
     //Password functionality for 1 user
+    private boolean isPasswordCorrect(char[] pwd){
+        
+        boolean isCorrect = false;
+        char[] correctPass = {'b', 'a', 'r', 'n', 'e', 's'};
+        
+        if(pwd.length != correctPass.length){
+            isCorrect = false;
+        }else{
+            isCorrect = Arrays.equals(pwd, correctPass);
+        }
+        Arrays.fill(correctPass, 'x');
+        return isCorrect;
+    }
     
     public void arrayListLoader(){
         
