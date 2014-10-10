@@ -1,39 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package swing.testing;
 
-import java.awt.Dimension;
-import java.awt.Image;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Locale;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import java.awt.*;
+import java.io.*;
+import java.text.*;
+import java.util.*;
+import javax.imageio.*;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Ricky
+ * @author Ricky Sidhu
+ * @author Kamron Javaherpour
  */
 public final class mainFrame extends javax.swing.JFrame {
 
@@ -46,10 +26,13 @@ public final class mainFrame extends javax.swing.JFrame {
         initComponents();
         viewState = 0;
         weekNumber = 1;
-        LeftButton.setEnabled(false); //Because we load the logview before initcomponents,
-        //we need to disable the buttons somehow, and not before they've been instanced yet
-        RightButton.setEnabled(false);
+        LeftButton.setEnabled(false); //We load the logview before initcomponents,
+        RightButton.setEnabled(false); //we need to disable the buttons somehow, and not before they've been instanced.
     }
+    
+    /**
+     * Loads the log view, a list of all activities with all relevant stored information.
+     */
     private void logViewLoader(){
         setTitle("Log View");
         if(LeftButton != null){ //If it's not the first time we're seeing the view
@@ -92,6 +75,9 @@ public final class mainFrame extends javax.swing.JFrame {
         repaint();
     }
     
+    /**
+    * Loads data from the Activities ArrayList into a dayview table model for the JTable.
+    */
     public void dayViewLoader(){       
         LeftButton.setEnabled(true);
         RightButton.setEnabled(true);
@@ -116,6 +102,11 @@ public final class mainFrame extends javax.swing.JFrame {
         repaint();
     }
     
+    /**
+     * Loads data from the Activities ArrayList into a dayview table model for the JTable.
+     * 
+     * Kind of hacky.
+    */
     public void weekViewLoader(){
         LeftButton.setEnabled(true);
         RightButton.setEnabled(true);
@@ -201,11 +192,18 @@ public final class mainFrame extends javax.swing.JFrame {
         
     }
     
+    /**
+    * Sorts array list by date, writes to main data.txt file. Allows you to save your changes, if any.
+    */
     public void arrayListUploader(){
-        //Sorts array list by date, writes to file
+        
     }
     
-    //Password functionality for 1 user
+    /**
+     * Password functionality for 1 user
+     * @param pwd
+     * @return true if the password was entered correctly.
+     */
     private boolean isPasswordCorrect(char[] pwd){
         
         boolean isCorrect = false;
@@ -219,7 +217,9 @@ public final class mainFrame extends javax.swing.JFrame {
         Arrays.fill(correctPass, 'x');
         return isCorrect;
     }
-    
+    /**
+     * Populates the ArrayList, our central data structure, with data from our text file.
+     */
     public void arrayListLoader(){
         
         activities = new ArrayList<>();
@@ -447,29 +447,39 @@ public final class mainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Button loading the log view.
+ */
     private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
         viewState = 0;
         logViewLoader();
     }//GEN-LAST:event_logButtonActionPerformed
-
+/**
+ * Button loading the day view.
+ */
     private void dayViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayViewButtonActionPerformed
         viewState = 1;
         dayViewLoader();
     }//GEN-LAST:event_dayViewButtonActionPerformed
-
+/**
+ * Button loading the diary.
+ */
     private void diaryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diaryButtonActionPerformed
         if (evt.getSource() == diaryButton){
             JEditorPaneSave jdiary = new JEditorPaneSave();
             jdiary.run();
         }
     }//GEN-LAST:event_diaryButtonActionPerformed
-
+/**
+ * Button loading the week view.
+ */
     private void weekViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weekViewButtonActionPerformed
         viewState = 2;
         weekViewLoader();
     }//GEN-LAST:event_weekViewButtonActionPerformed
-
+    /**
+     * Navigates backwards for day View/week view.
+     */
     private void LeftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeftButtonActionPerformed
         if(viewState == 1){ //Day View
             if(currentDate.compareTo(firstDate) == 0){ //If we are on the first date, wrap-around to the last date
@@ -492,7 +502,9 @@ public final class mainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_LeftButtonActionPerformed
-
+    /**
+     * Navigates forwards for day View/week view.
+     */
     private void RightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RightButtonActionPerformed
         if(viewState == 1){ //Day View
             if(currentDate.compareTo(lastDate) == 0){ //If we are on the last date, wrap-around to the first date
@@ -526,10 +538,16 @@ public final class mainFrame extends javax.swing.JFrame {
         launchAuthor();
     }//GEN-LAST:event_authorMenuItemActionPerformed
 
+    /**
+     * From within any view, this allows you to add a new activity to the collection.
+     */
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        //Spawn a new Frame for this.
+
     }//GEN-LAST:event_addButtonActionPerformed
 
+    /**
+     * Allows you to remove the currently selected row (in log view) from the collection of activities. 
+     */
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         if(viewState == 0){
            if(rowSelected != -1){
@@ -541,6 +559,9 @@ public final class mainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeButtonActionPerformed
     
+    /**
+     * Shows a window that details the authors of this application.
+     */
     private void launchAuthor(){
         
         JFrame authorFrame = new JFrame("Author");
@@ -548,8 +569,8 @@ public final class mainFrame extends javax.swing.JFrame {
         authorFrame.setVisible(true);
         authorFrame.setSize(400,400);
         
-        ImageIcon ricky = createImageIcon("file://ricky", "Ricky Sidhu");
-        ImageIcon kam = createImageIcon("file://kam", "Kamron Javaherpour");
+        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
+        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
         
         JLabel rickyPic = new JLabel(ricky);
         JLabel kamPic = new JLabel(kam);
@@ -586,7 +607,9 @@ public final class mainFrame extends javax.swing.JFrame {
         return null;
     }
 }
-    
+    /**
+     * Details the application itself.
+     */
     private void launchAbout(){
         
         JFrame aboutFrame = new JFrame("Usage");
@@ -613,7 +636,7 @@ public final class mainFrame extends javax.swing.JFrame {
     }
 
     /**
-     * @param args the command line arguments
+     * Some basic look-and-feel stuff that NetBeans generated and a main method. No big deal.
      */
     public static void main(String args[]){
         /* Set the Nimbus look and feel */
@@ -672,6 +695,6 @@ public final class mainFrame extends javax.swing.JFrame {
     private Date firstDate;
     private Date lastDate;
     private int weekNumber;
-    private int viewState;//0 for logview, 1 for dayview, 2 for weekview
+    private int viewState;  //0 for logview, 1 for dayview, 2 for weekview
     private int rowSelected = -1;
 }
