@@ -548,8 +548,8 @@ public final class mainFrame extends javax.swing.JFrame {
         authorFrame.setVisible(true);
         authorFrame.setSize(400,400);
         
-        ImageIcon ricky = createImageIcon("../ricky", "Ricky Sidhu");
-        ImageIcon kam = createImageIcon("kam", "Kamron Javaherpour");
+        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
+        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
         
         JLabel rickyPic = new JLabel(ricky);
         JLabel kamPic = new JLabel(kam);
