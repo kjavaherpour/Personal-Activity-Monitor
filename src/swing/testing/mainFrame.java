@@ -230,10 +230,18 @@ public final class mainFrame extends javax.swing.JFrame {
             
             bufferedReader = new BufferedReader(new FileReader(file));
             String line; 
-            if(bufferedReader.readLine() == null){
-                
-            }
-            while( (line = bufferedReader.readLine())!= null ){ //Line by line, each is a row.
+//            if(bufferedReader.readLine() == null){
+//                    JOptionPane.showMessageDialog(this, "Please add an activity");
+//                    addActivityFrame addFrame = new addActivityFrame();
+//                    addFrame.setVisible(true);
+//                    Activity test = new Activity();
+//                    test.setName("Hiking");
+//                    test.setDayOfWeek('M');
+//                    test.setLengthOfTime("1 hour");
+//                    test.setDate(currentDate);
+//                    activities.add(test);
+//            }else{
+                while( (line = bufferedReader.readLine())!= null ){ //Line by line, each is a row.
                 String[] activity = line.split(",");
                 Activity act = new Activity();
                 act.setName(activity[0]);
@@ -247,6 +255,7 @@ public final class mainFrame extends javax.swing.JFrame {
             }
             bufferedReader.close();
         }
+        
         catch(IOException | ParseException | NumberFormatException e){
         }
         Collections.sort(activities);
