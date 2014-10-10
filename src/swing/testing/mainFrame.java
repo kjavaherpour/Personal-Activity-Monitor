@@ -229,7 +229,10 @@ public final class mainFrame extends javax.swing.JFrame {
         try{
             
             bufferedReader = new BufferedReader(new FileReader(file));
-            String line;                   
+            String line; 
+            if(bufferedReader.readLine() == null){
+                
+            }
             while( (line = bufferedReader.readLine())!= null ){ //Line by line, each is a row.
                 String[] activity = line.split(",");
                 Activity act = new Activity();
@@ -251,6 +254,20 @@ public final class mainFrame extends javax.swing.JFrame {
         firstDate = activities.get(0).getDate();
         lastDate = activities.get(activities.size()-1).getDate();
     }
+    
+    public void saveFile(){
+        try{
+        FileWriter out = new FileWriter("data.txt");
+        for(Activity activity : activities){
+            String text = activity.toString() + "\r\n";
+            out.write(text);
+        }
+        out.close();
+        }catch(IOException e){
+        }
+        JOptionPane.showMessageDialog(this, "Save successful");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -353,6 +370,11 @@ public final class mainFrame extends javax.swing.JFrame {
         });
 
         saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         fileMenu.setText("File");
         myMenuBar.add(fileMenu);
@@ -558,6 +580,11 @@ public final class mainFrame extends javax.swing.JFrame {
            else JOptionPane.showMessageDialog(this, "Select an activity you would like to remove.");
         }
     }//GEN-LAST:event_removeButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // TODO add your handling code here:
+        saveFile();
+    }//GEN-LAST:event_saveButtonActionPerformed
     
     /**
      * Shows a window that details the authors of this application.

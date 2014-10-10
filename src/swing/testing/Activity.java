@@ -15,7 +15,7 @@ public class Activity implements Comparable<Activity>{
     private int weekNumber;
     
     public String toString(){
-        return "[" + getName() + " " + getDateString() + " " + getTime() + " " + getDayOfWeek() + " " + getLengthOfTime() + " " + getWeekNumber() + "]";
+        return getName() + "," + getDateString() + "," + getTime() + "," + getDayOfWeek() + "," + getLengthOfTime() + "," + getWeekNumber();
     }
     public int getWeekNumber() {
         return weekNumber;
