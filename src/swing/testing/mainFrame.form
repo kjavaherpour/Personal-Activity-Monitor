@@ -78,15 +78,19 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="weekViewButton" linkSize="1" max="32767" attributes="0"/>
-                          <Component id="dayViewButton" linkSize="1" max="32767" attributes="0"/>
-                          <Component id="logButton" linkSize="1" pref="85" max="32767" attributes="0"/>
-                          <Component id="diaryButton" linkSize="1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="addButton" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="diaryButton" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="addButton" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="removeButton" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="saveButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="weekViewButton" linkSize="1" alignment="1" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="removeButton" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="logButton" linkSize="1" alignment="1" pref="85" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="saveButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="dayViewButton" linkSize="1" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -107,11 +111,11 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="logButton" linkSize="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="dayViewButton" linkSize="2" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="weekViewButton" linkSize="2" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="logButton" linkSize="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="diaryButton" linkSize="3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -206,11 +210,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="removeButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Remove"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="saveButton">
       <Properties>
