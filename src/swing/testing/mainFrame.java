@@ -25,6 +25,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -260,6 +262,14 @@ public final class mainFrame extends javax.swing.JFrame {
         jTable.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jTable);
         jTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        //Registering the row clicks
+        jTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                rowSelected = jTable.getSelectedRow();
+            }
+        });
 
         weekViewButton.setText("Week View");
         weekViewButton.addActionListener(new java.awt.event.ActionListener() {
@@ -612,4 +622,5 @@ public final class mainFrame extends javax.swing.JFrame {
     private Date lastDate;
     private int weekNumber;
     private int viewState;//0 for logview, 1 for dayview, 2 for weekview
+    private int rowSelected;
 }
