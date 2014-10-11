@@ -97,6 +97,11 @@ public class addActivityFrame extends javax.swing.JFrame {
         });
 
         clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Length of time, in hours, that you did your activity (e.g., 1 hour)");
 
@@ -201,53 +206,51 @@ public class addActivityFrame extends javax.swing.JFrame {
                 cal.setTime(activityDate);
                 //Day of week character
                 newActivity.setDayOfWeek(new SimpleDateFormat("EEE", Locale.ENGLISH).format(activityDate).charAt(0));
-                dateFormat = true;
-            }
-        }
-        
-        //Now check if the date was in the correct range.
-        Calendar start =  Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        start.set(2014, 8, 28);
-        end.set(2014, 9, 20);
-        if(activityDate.before(end.getTime()) && activityDate.after(start.getTime())){
-            dateRange = true;
-            //Set week number for weekview's purposes
-            //Start of first is already defined
-            Calendar endOfFirstWeek = Calendar.getInstance();
-            Calendar beginningOfSecondWeek = Calendar.getInstance();
-            Calendar endOfSecondWeek = Calendar.getInstance();
-            Calendar beginningOfThirdWeek = Calendar.getInstance();
-            //End of third is already defined
+                        //Now check if the date was in the correct range.
+            Calendar start =  Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            start.set(2014, 8, 28);
+            end.set(2014, 9, 20);
+            if(activityDate.before(end.getTime()) && activityDate.after(start.getTime())){
+                dateRange = true;
+                //Set week number for weekview's purposes
+                //Start of first is already defined
+                Calendar endOfFirstWeek = Calendar.getInstance();
+                Calendar beginningOfSecondWeek = Calendar.getInstance();
+                Calendar endOfSecondWeek = Calendar.getInstance();
+                Calendar beginningOfThirdWeek = Calendar.getInstance();
+                //End of third is already defined
 
-            endOfFirstWeek.set(2014, 9, 5);        
-            beginningOfSecondWeek.set(2014, 9, 5); 
-            endOfSecondWeek.set(2014, 9, 12);
-            beginningOfThirdWeek.set(2014, 9, 12);
-            //im so sorry this code is horrifying
-            if(activityDate.after(start.getTime()) && activityDate.before(endOfFirstWeek.getTime())){
-                System.out.println("Week 1");
-                newActivity.setWeekNumber(1);
-            } //oh god
-            else if(activityDate.after(beginningOfSecondWeek.getTime()) && activityDate.before(endOfSecondWeek.getTime())){
-                System.out.println("Week 2");
-                newActivity.setWeekNumber(2);            
+                endOfFirstWeek.set(2014, 9, 5);        
+                beginningOfSecondWeek.set(2014, 9, 5); 
+                endOfSecondWeek.set(2014, 9, 12);
+                beginningOfThirdWeek.set(2014, 9, 12);
+                //im so sorry this code is horrifying
+                if(activityDate.after(start.getTime()) && activityDate.before(endOfFirstWeek.getTime())){
+                    System.out.println("Week 1");
+                    newActivity.setWeekNumber(1);
+                } //oh god
+                else if(activityDate.after(beginningOfSecondWeek.getTime()) && activityDate.before(endOfSecondWeek.getTime())){
+                    System.out.println("Week 2");
+                    newActivity.setWeekNumber(2);            
+                }
+                else if(activityDate.after(beginningOfThirdWeek.getTime()) && activityDate.before(end.getTime())){
+                    System.out.println("Week 3");
+                    newActivity.setWeekNumber(3);
+                }
             }
-            else if(activityDate.after(beginningOfThirdWeek.getTime()) && activityDate.before(end.getTime())){
-                System.out.println("Week 3");
-                newActivity.setWeekNumber(3);
+                    dateFormat = true;
+                }
             }
-            System.out.println(newActivity);
-        }
-        
-        //Now check if there's an activity name, time entered, and length of time entered.
-        if(dateFormat && dateRange && nameEntered && timeEntered && hoursEntered){
-            newActivity.setName(activityNameField.getText());
-            newActivity.setTime(timeOfDay.getText());
-            newActivity.setLengthOfTime(hoursOfActivity.getText()); 
-            parentFrame.addActivityFromDialogue(newActivity);
-            this.dispose();
-            //send up the activity
+
+            //Now check if there's an activity name, time entered, and length of time entered.
+            if(dateFormat && dateRange && nameEntered && timeEntered && hoursEntered){
+                newActivity.setName(activityNameField.getText());
+                newActivity.setTime(timeOfDay.getText());
+                newActivity.setLengthOfTime(hoursOfActivity.getText()); 
+                parentFrame.addActivityFromDialogue(newActivity);
+                this.dispose();
+                //send up the activity
         }
         else{
             JOptionPane.showMessageDialog(this, "A field was either left blank or incorrectly entered.");
@@ -259,6 +262,14 @@ public class addActivityFrame extends javax.swing.JFrame {
     private void timeOfDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeOfDayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_timeOfDayActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        dateField.setText("");
+        timeOfDay.setText("");
+        hoursOfActivity.setText("");
+        activityNameField.setText("");
+        
+    }//GEN-LAST:event_clearButtonActionPerformed
 
     /**
      * @param args the command line arguments
