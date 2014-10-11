@@ -214,13 +214,6 @@ public final class mainFrame extends javax.swing.JFrame {
     }
     
     /**
-    * Sorts array list by date, writes to main data.txt file. Allows you to save your changes, if any.
-    */
-    public void arrayListUploader(){
-        
-    }
-    
-    /**
      * Password functionality for 1 user
      * @param pwd
      * @return true if the password was entered correctly.
@@ -311,62 +304,73 @@ public final class mainFrame extends javax.swing.JFrame {
      * @param column 
      */
     private void editEvent(int row, int column){
-        Calendar endOfFirstWeek = Calendar.getInstance();
-        Calendar beginningOfSecondWeek = Calendar.getInstance();
-        Calendar endOfSecondWeek = Calendar.getInstance();
-        Calendar beginningOfThirdWeek = Calendar.getInstance();
-        Calendar start =  Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        start.set(2014, 8, 28);
-        end.set(2014, 9, 20);
-        endOfFirstWeek.set(2014, 9, 5);        
-        beginningOfSecondWeek.set(2014, 9, 5); 
-        endOfSecondWeek.set(2014, 9, 12);
-        beginningOfThirdWeek.set(2014, 9, 12);
-        try{
-            //Activity name changed
-            if(column == 0) activities.get(row).setName((String) tableModel.getValueAt(row, column));
-            else if(column == 1){ //Changes to date require some special care.
-                Date changedDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH)
-                        .parse((String) tableModel.getValueAt(row, column));
-                if(dateInCorrectRange(changedDate)){ //Make sure it's within our range.
-                    activities.get(row).setDate(changedDate);
-                    activities.get(row).setDayOfWeek(new SimpleDateFormat("EEE").format(changedDate).charAt(0));
-                    
-                    //Setting the week number in the activity class: this is kind of hairy.
-                    if(changedDate.after(start.getTime()) && changedDate.before(endOfFirstWeek.getTime()))
-                        activities.get(row).setWeekNumber(1);
-                    else if(changedDate.after(beginningOfSecondWeek.getTime()) && changedDate.before(endOfSecondWeek.getTime()))
-                        activities.get(row).setWeekNumber(2);            
-                    else if(changedDate.after(beginningOfThirdWeek.getTime()) && changedDate.before(end.getTime()))
-                        activities.get(row).setWeekNumber(3);
+        if(viewState==0){
+            Calendar endOfFirstWeek = Calendar.getInstance();
+            Calendar beginningOfSecondWeek = Calendar.getInstance();
+            Calendar endOfSecondWeek = Calendar.getInstance();
+            Calendar beginningOfThirdWeek = Calendar.getInstance();
+            Calendar start =  Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            start.set(2014, 8, 28);
+            end.set(2014, 9, 20);
+            endOfFirstWeek.set(2014, 9, 5);        
+            beginningOfSecondWeek.set(2014, 9, 5); 
+            endOfSecondWeek.set(2014, 9, 12);
+            beginningOfThirdWeek.set(2014, 9, 12);
+            try{
+                //Activity name changed
+                if(column == 0) activities.get(row).setName((String) tableModel.getValueAt(row, column));
+                else if(column == 1){ //Changes to date require some special care.
+                    Date changedDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH)
+                            .parse((String) tableModel.getValueAt(row, column));
+                    if(dateInCorrectRange(changedDate)){ //Make sure it's within our range.
+                        activities.get(row).setDate(changedDate);
+                        activities.get(row).setDayOfWeek(new SimpleDateFormat("EEE").format(changedDate).charAt(0));
+
+                        //Setting the week number in the activity class: this is kind of hairy.
+                        if(changedDate.after(start.getTime()) && changedDate.before(endOfFirstWeek.getTime()))
+                            activities.get(row).setWeekNumber(1);
+                        else if(changedDate.after(beginningOfSecondWeek.getTime()) && changedDate.before(endOfSecondWeek.getTime()))
+                            activities.get(row).setWeekNumber(2);            
+                        else if(changedDate.after(beginningOfThirdWeek.getTime()) && changedDate.before(end.getTime()))
+                            activities.get(row).setWeekNumber(3);
+                    }
+                    else{ //Otherwise, just reload.
+                        JOptionPane.showMessageDialog(this, "Incorrect date entry: must be between Sep 29 and Oct 19");
+                        logViewLoader();
+                    }
                 }
-                else{ //Otherwise, just reload.
-                    JOptionPane.showMessageDialog(this, "Incorrect date entry: must be between Sep 29 and Oct 19");
+                else if(column == 2){
+                    activities.get(row).setTime((String) tableModel.getValueAt(row, column));
+                }
+                else if(column == 3){
+                    JOptionPane.showMessageDialog(this, "If you would like to change the day of the week, change the date.");
                     logViewLoader();
+                }  
+                else if(column == 4){
+                    activities.get(row).setLengthOfTime((String) tableModel.getValueAt(row, column));
                 }
             }
-            else if(column == 2){
-                activities.get(row).setTime((String) tableModel.getValueAt(row, column));
+            catch(ParseException e){
+                JOptionPane.showMessageDialog(this, "Date incorrectly formatted: must be MMM dd yyyy");
             }
-            else if(column == 3){
-                JOptionPane.showMessageDialog(this, "If you would like to change the day of the week, change the date.");
+            finally{
                 logViewLoader();
-            }  
-            else if(column == 4){
-                activities.get(row).setLengthOfTime((String) tableModel.getValueAt(row, column));
+                jTable.getModel().addTableModelListener(new TableModelListener() {
+                public void tableChanged(TableModelEvent e) {
+                    editEvent(e.getFirstRow(), e.getColumn());
+                }
+            });
             }
         }
-        catch(ParseException e){
-            JOptionPane.showMessageDialog(this, "Date incorrectly formatted: must be MMM dd yyyy");
-        }
-        finally{
-            logViewLoader();
+        else if (viewState == 1 || viewState == 2){
+            JOptionPane.showMessageDialog(this, "Please select log view to make changes.");
             jTable.getModel().addTableModelListener(new TableModelListener() {
-            public void tableChanged(TableModelEvent e) {
-                editEvent(e.getFirstRow(), e.getColumn());
-            }
-        });
+                public void tableChanged(TableModelEvent e) {
+                    editEvent(e.getFirstRow(), e.getColumn());
+                }
+            });
+            reloadView();
         }
     }
     
@@ -413,7 +417,6 @@ public final class mainFrame extends javax.swing.JFrame {
                 rowSelected = jTable.getSelectedRow();
             }
         });
-
         jTable.getModel().addTableModelListener(new TableModelListener() {
 
             public void tableChanged(TableModelEvent e) {

@@ -1,5 +1,5 @@
+Reading books,Sep 30 2014,7:03AM,T,2 hours,1
 Skateboarding,Oct 01 2014,7:03AM,W,2 hours,1
-Reading,Sep 30 2014,7:03AM,T,2 hours,1
 Flying,Oct 01 2014,12:00PM,W,2 hour,1
 Thinking,Oct 01 2014,7:03AM,W,3 hours,1
 Coding,Oct 01 2014,11:00AM,W,2 hours,1
