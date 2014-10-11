@@ -311,7 +311,6 @@ public final class mainFrame extends javax.swing.JFrame {
      * @param column 
      */
     private void editEvent(int row, int column){
-        System.out.println("Table Model event!");
         Calendar endOfFirstWeek = Calendar.getInstance();
         Calendar beginningOfSecondWeek = Calendar.getInstance();
         Calendar endOfSecondWeek = Calendar.getInstance();
