@@ -8,6 +8,8 @@ import javax.imageio.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -252,7 +254,8 @@ public final class mainFrame extends javax.swing.JFrame {
             if(bufferedReader.readLine() == null){
                     JOptionPane.showMessageDialog(this, "Please add an activity");
             }
-                while( (line = bufferedReader.readLine())!= null ){ //Line by line, each is a row.
+            else bufferedReader = new BufferedReader(new FileReader(file)); //Re-open the file to start from the beginning
+            while( (line = bufferedReader.readLine())!= null ){ //Line by line, each is a row.
                 String[] activity = line.split(",");
                 Activity act = new Activity();
                 act.setName(activity[0]);
@@ -287,6 +290,85 @@ public final class mainFrame extends javax.swing.JFrame {
         }catch(IOException e){
         }
         JOptionPane.showMessageDialog(this, "Save successful");
+    }
+    
+    /**
+     * checks if a given date is between sep 29 and oct 19
+     */
+    private boolean dateInCorrectRange(Date d){
+        Calendar start =  Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        start.set(2014, 8, 28);
+        end.set(2014, 9, 20);
+        if(d.before(end.getTime()) && d.after(start.getTime()))
+            return true;
+        return false;
+    }
+    /**
+     * Triggered by the tablemodellistener, this method will check input in logview and 
+     * make changes to our data structure accordingly.
+     * @param row
+     * @param column 
+     */
+    private void editEvent(int row, int column){
+        System.out.println("Table Model event!");
+        Calendar endOfFirstWeek = Calendar.getInstance();
+        Calendar beginningOfSecondWeek = Calendar.getInstance();
+        Calendar endOfSecondWeek = Calendar.getInstance();
+        Calendar beginningOfThirdWeek = Calendar.getInstance();
+        Calendar start =  Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        start.set(2014, 8, 28);
+        end.set(2014, 9, 20);
+        endOfFirstWeek.set(2014, 9, 5);        
+        beginningOfSecondWeek.set(2014, 9, 5); 
+        endOfSecondWeek.set(2014, 9, 12);
+        beginningOfThirdWeek.set(2014, 9, 12);
+        try{
+            //Activity name changed
+            if(column == 0) activities.get(row).setName((String) tableModel.getValueAt(row, column));
+            else if(column == 1){ //Changes to date require some special care.
+                Date changedDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH)
+                        .parse((String) tableModel.getValueAt(row, column));
+                if(dateInCorrectRange(changedDate)){ //Make sure it's within our range.
+                    activities.get(row).setDate(changedDate);
+                    activities.get(row).setDayOfWeek(new SimpleDateFormat("EEE").format(changedDate).charAt(0));
+                    
+                    //Setting the week number in the activity class: this is kind of hairy.
+                    if(changedDate.after(start.getTime()) && changedDate.before(endOfFirstWeek.getTime()))
+                        activities.get(row).setWeekNumber(1);
+                    else if(changedDate.after(beginningOfSecondWeek.getTime()) && changedDate.before(endOfSecondWeek.getTime()))
+                        activities.get(row).setWeekNumber(2);            
+                    else if(changedDate.after(beginningOfThirdWeek.getTime()) && changedDate.before(end.getTime()))
+                        activities.get(row).setWeekNumber(3);
+                }
+                else{ //Otherwise, just reload.
+                    JOptionPane.showMessageDialog(this, "Incorrect date entry: must be between Sep 29 and Oct 19");
+                    logViewLoader();
+                }
+            }
+            else if(column == 2){
+                activities.get(row).setTime((String) tableModel.getValueAt(row, column));
+            }
+            else if(column == 3){
+                JOptionPane.showMessageDialog(this, "If you would like to change the day of the week, change the date.");
+                logViewLoader();
+            }  
+            else if(column == 4){
+                activities.get(row).setLengthOfTime((String) tableModel.getValueAt(row, column));
+            }
+        }
+        catch(ParseException e){
+            JOptionPane.showMessageDialog(this, "Date incorrectly formatted: must be MMM dd yyyy");
+        }
+        finally{
+            logViewLoader();
+            jTable.getModel().addTableModelListener(new TableModelListener() {
+            public void tableChanged(TableModelEvent e) {
+                editEvent(e.getFirstRow(), e.getColumn());
+            }
+        });
+        }
     }
     
     /**
@@ -330,6 +412,13 @@ public final class mainFrame extends javax.swing.JFrame {
                 // do some actions here, for example
                 // print first column value from selected row
                 rowSelected = jTable.getSelectedRow();
+            }
+        });
+
+        jTable.getModel().addTableModelListener(new TableModelListener() {
+
+            public void tableChanged(TableModelEvent e) {
+                editEvent(e.getFirstRow(), e.getColumn());
             }
         });
 
@@ -591,6 +680,7 @@ public final class mainFrame extends javax.swing.JFrame {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         addActivityFrame addFrame = new addActivityFrame();
         addFrame.setParent(this);
+        addFrame.setLocationByPlatform(true);
         addFrame.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed
     /**
@@ -628,6 +718,7 @@ public final class mainFrame extends javax.swing.JFrame {
         
         JFrame authorFrame = new JFrame("Author");
         authorFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        authorFrame.setLocationByPlatform(true);
         authorFrame.setVisible(true);
         authorFrame.setSize(400,400);
 //        
@@ -676,6 +767,7 @@ public final class mainFrame extends javax.swing.JFrame {
         
         JFrame aboutFrame = new JFrame("Usage");
         aboutFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        aboutFrame.setLocationByPlatform(true);
         aboutFrame.setVisible(true);
         aboutFrame.setSize(400,400);
         

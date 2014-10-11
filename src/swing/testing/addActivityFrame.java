@@ -207,41 +207,41 @@ public class addActivityFrame extends javax.swing.JFrame {
                 //Day of week character
                 newActivity.setDayOfWeek(new SimpleDateFormat("EEE", Locale.ENGLISH).format(activityDate).charAt(0));
                         //Now check if the date was in the correct range.
-            Calendar start =  Calendar.getInstance();
-            Calendar end = Calendar.getInstance();
-            start.set(2014, 8, 28);
-            end.set(2014, 9, 20);
-            if(activityDate.before(end.getTime()) && activityDate.after(start.getTime())){
-                dateRange = true;
-                //Set week number for weekview's purposes
-                //Start of first is already defined
-                Calendar endOfFirstWeek = Calendar.getInstance();
-                Calendar beginningOfSecondWeek = Calendar.getInstance();
-                Calendar endOfSecondWeek = Calendar.getInstance();
-                Calendar beginningOfThirdWeek = Calendar.getInstance();
-                //End of third is already defined
+                Calendar start =  Calendar.getInstance();
+                Calendar end = Calendar.getInstance();
+                start.set(2014, 8, 28);
+                end.set(2014, 9, 20);
+                if(activityDate.before(end.getTime()) && activityDate.after(start.getTime())){
+                    dateRange = true;
+                    //Set week number for weekview's purposes
+                    //Start of first is already defined
+                    Calendar endOfFirstWeek = Calendar.getInstance();
+                    Calendar beginningOfSecondWeek = Calendar.getInstance();
+                    Calendar endOfSecondWeek = Calendar.getInstance();
+                    Calendar beginningOfThirdWeek = Calendar.getInstance();
+                    //End of third is already defined
 
-                endOfFirstWeek.set(2014, 9, 5);        
-                beginningOfSecondWeek.set(2014, 9, 5); 
-                endOfSecondWeek.set(2014, 9, 12);
-                beginningOfThirdWeek.set(2014, 9, 12);
-                //im so sorry this code is horrifying
-                if(activityDate.after(start.getTime()) && activityDate.before(endOfFirstWeek.getTime())){
-                    System.out.println("Week 1");
-                    newActivity.setWeekNumber(1);
-                } //oh god
-                else if(activityDate.after(beginningOfSecondWeek.getTime()) && activityDate.before(endOfSecondWeek.getTime())){
-                    System.out.println("Week 2");
-                    newActivity.setWeekNumber(2);            
+                    endOfFirstWeek.set(2014, 9, 5);        
+                    beginningOfSecondWeek.set(2014, 9, 5); 
+                    endOfSecondWeek.set(2014, 9, 12);
+                    beginningOfThirdWeek.set(2014, 9, 12);
+                    //im so sorry this code is horrifying
+                    if(activityDate.after(start.getTime()) && activityDate.before(endOfFirstWeek.getTime())){
+                        System.out.println("Week 1");
+                        newActivity.setWeekNumber(1);
+                    } //oh god
+                    else if(activityDate.after(beginningOfSecondWeek.getTime()) && activityDate.before(endOfSecondWeek.getTime())){
+                        System.out.println("Week 2");
+                        newActivity.setWeekNumber(2);            
+                    }
+                    else if(activityDate.after(beginningOfThirdWeek.getTime()) && activityDate.before(end.getTime())){
+                        System.out.println("Week 3");
+                        newActivity.setWeekNumber(3);
+                    }
                 }
-                else if(activityDate.after(beginningOfThirdWeek.getTime()) && activityDate.before(end.getTime())){
-                    System.out.println("Week 3");
-                    newActivity.setWeekNumber(3);
-                }
+                        dateFormat = true;
             }
-                    dateFormat = true;
-                }
-            }
+        }
 
             //Now check if there's an activity name, time entered, and length of time entered.
             if(dateFormat && dateRange && nameEntered && timeEntered && hoursEntered){

@@ -1,6 +1,6 @@
-Biking,Sep 29 2014,7:03AM,M,1 hour,1
-Cooking,Sep 29 2014,12:00PM,M,1 hour,1
+Skateboarding,Oct 01 2014,7:03AM,W,2 hours,1
 Reading,Sep 30 2014,7:03AM,T,2 hours,1
+Flying,Oct 01 2014,12:00PM,W,2 hour,1
 Thinking,Oct 01 2014,7:03AM,W,3 hours,1
 Coding,Oct 01 2014,11:00AM,W,2 hours,1
 Talking,Oct 02 2014,7:03AM,R,4 hours,1
@@ -12,7 +12,6 @@ Gaming,Oct 07 2014,7:03AM,T,2 hours,2
 Eating,Oct 08 2014,7:03AM,W,3 hours,2
 Driving,Oct 09 2014,7:03AM,R,4 hours,2
 Baking,Oct 10 2014,7:03AM,F,5 hours,2
-Worked on PAM,Oct 10 2014,2:30PM,F,3 Hours,2
 Crying,Oct 11 2014,10:08PM,S,1 hour,2
 Jumping,Oct 12 2014,4:08PM,U,1 hour,2
 Raking,Oct 13 2014,7:03AM,M,1 hour,3

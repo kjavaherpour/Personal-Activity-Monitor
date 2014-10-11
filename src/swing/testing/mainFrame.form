@@ -142,7 +142,7 @@
         <Component class="javax.swing.JTable" name="jTable">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="//Registering the row clicks&#xa;jTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;        public void valueChanged(ListSelectionEvent event) {&#xa;            // do some actions here, for example&#xa;            // print first column value from selected row&#xa;            rowSelected = jTable.getSelectedRow();&#xa;        }&#xa;    });">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="//Registering the row clicks&#xa;jTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;        public void valueChanged(ListSelectionEvent event) {&#xa;            // do some actions here, for example&#xa;            // print first column value from selected row&#xa;            rowSelected = jTable.getSelectedRow();&#xa;        }&#xa;    });&#xa;&#xa;    jTable.getModel().addTableModelListener(new TableModelListener() {&#xa;&#xa;      public void tableChanged(TableModelEvent e) {&#xa;         editEvent(e.getFirstRow(), e.getColumn());&#xa;      }&#xa;    });">
               <TableColumnModel selectionModel="1"/>
             </Property>
             <Property name="columnSelectionAllowed" type="boolean" value="true"/>
