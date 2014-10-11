@@ -6,6 +6,17 @@
 
 package swing.testing;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author Ricky
@@ -18,7 +29,10 @@ public class addActivityFrame extends javax.swing.JFrame {
     public addActivityFrame() {
         initComponents();
     }
-
+    
+    public void setParent(mainFrame mf){
+        parentFrame = mf;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,9 +47,11 @@ public class addActivityFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         activityNameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        hoursOfActivity = new javax.swing.JTextField();
+        timeOfDay = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        hoursOfActivity = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -45,7 +61,7 @@ public class addActivityFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Date in MMM dd yyyy format (between Oct 29 2014 and Sep 19 2014)");
+        jLabel1.setText("Date in MMM dd yyyy format (between Sep 29 2014 and Oct 19 2014)");
 
         jLabel2.setText("The name of your activity");
 
@@ -55,11 +71,34 @@ public class addActivityFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Length of time, in hours, that you did your activity");
+        jLabel3.setText("Time of day that you did your activity (e.g., 5:00AM)");
+
+        timeOfDay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeOfDayActionPerformed(evt);
+            }
+        });
+        timeOfDay.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+            public void removeUpdate(DocumentEvent e) {
+            }
+            public void insertUpdate(DocumentEvent e) {
+                timeEntered = true;
+            }
+        });
 
         saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         clearButton.setText("Clear");
+
+        jLabel4.setText("Length of time, in hours, that you did your activity (e.g., 1 hour)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,16 +111,18 @@ public class addActivityFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(dateField, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                     .addComponent(activityNameField)
-                    .addComponent(hoursOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeOfDay, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(saveButton)
                         .addGap(31, 31, 31)
                         .addComponent(clearButton))
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(hoursOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {activityNameField, dateField, hoursOfActivity});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {activityNameField, dateField, hoursOfActivity, timeOfDay});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,15 +138,38 @@ public class addActivityFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(timeOfDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(hoursOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(clearButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {activityNameField, dateField, hoursOfActivity});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {activityNameField, dateField, hoursOfActivity, timeOfDay});
+
+        activityNameField.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+            }
+            public void removeUpdate(DocumentEvent e) {
+            }
+            public void insertUpdate(DocumentEvent e) {
+                nameEntered = true;
+            }
+        });
+        hoursOfActivity.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+            }
+            public void removeUpdate(DocumentEvent e) {
+            }
+            public void insertUpdate(DocumentEvent e) {
+                hoursEntered = true;
+            }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -115,8 +179,86 @@ public class addActivityFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_dateFieldActionPerformed
 
     private void activityNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activityNameFieldActionPerformed
-        // TODO add your handling code here:
+        nameEntered = true;
     }//GEN-LAST:event_activityNameFieldActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        boolean dateFormat = false, dateRange = false;
+        newActivity = new Activity();
+        Date activityDate = null;
+        
+        //Check if date was correctly entered.
+        try{
+           activityDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(dateField.getText());
+        }
+        catch(ParseException e){
+           JOptionPane.showMessageDialog(this, "Incorrect date format, please re-enter your date.");
+        }
+        finally{
+            if (activityDate != null){
+                newActivity.setDate(activityDate);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(activityDate);
+                //Day of week character
+                newActivity.setDayOfWeek(new SimpleDateFormat("EEE", Locale.ENGLISH).format(activityDate).charAt(0));
+                dateFormat = true;
+            }
+        }
+        
+        //Now check if the date was in the correct range.
+        Calendar start =  Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        start.set(2014, 8, 28);
+        end.set(2014, 9, 20);
+        if(activityDate.before(end.getTime()) && activityDate.after(start.getTime())){
+            dateRange = true;
+            //Set week number for weekview's purposes
+            //Start of first is already defined
+            Calendar endOfFirstWeek = Calendar.getInstance();
+            Calendar beginningOfSecondWeek = Calendar.getInstance();
+            Calendar endOfSecondWeek = Calendar.getInstance();
+            Calendar beginningOfThirdWeek = Calendar.getInstance();
+            //End of third is already defined
+
+            endOfFirstWeek.set(2014, 9, 5);        
+            beginningOfSecondWeek.set(2014, 9, 5); 
+            endOfSecondWeek.set(2014, 9, 12);
+            beginningOfThirdWeek.set(2014, 9, 12);
+            //im so sorry this code is horrifying
+            if(activityDate.after(start.getTime()) && activityDate.before(endOfFirstWeek.getTime())){
+                System.out.println("Week 1");
+                newActivity.setWeekNumber(1);
+            } //oh god
+            else if(activityDate.after(beginningOfSecondWeek.getTime()) && activityDate.before(endOfSecondWeek.getTime())){
+                System.out.println("Week 2");
+                newActivity.setWeekNumber(2);            
+            }
+            else if(activityDate.after(beginningOfThirdWeek.getTime()) && activityDate.before(end.getTime())){
+                System.out.println("Week 3");
+                newActivity.setWeekNumber(3);
+            }
+            System.out.println(newActivity);
+        }
+        
+        //Now check if there's an activity name, time entered, and length of time entered.
+        if(dateFormat && dateRange && nameEntered && timeEntered && hoursEntered){
+            newActivity.setName(activityNameField.getText());
+            newActivity.setTime(timeOfDay.getText());
+            newActivity.setLengthOfTime(hoursOfActivity.getText()); 
+            parentFrame.addActivityFromDialogue(newActivity);
+            this.dispose();
+            //send up the activity
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "A field was either left blank or incorrectly entered.");
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
+        public Activity getActivity(){
+            return newActivity;
+        }
+    private void timeOfDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeOfDayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeOfDayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,6 +303,13 @@ public class addActivityFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton saveButton;
+    private javax.swing.JTextField timeOfDay;
     // End of variables declaration//GEN-END:variables
+    private Activity newActivity;
+    private boolean nameEntered = false;
+    private boolean timeEntered = false;
+    private boolean hoursEntered = false;
+    public mainFrame parentFrame;
 }

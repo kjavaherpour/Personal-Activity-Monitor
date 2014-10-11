@@ -568,14 +568,28 @@ public final class mainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         launchAuthor();
     }//GEN-LAST:event_authorMenuItemActionPerformed
-
+    private void reloadView(){
+        if(viewState == 0) logViewLoader();
+        if(viewState == 1) dayViewLoader();
+        if(viewState == 2) weekViewLoader();
+    }
     /**
      * From within any view, this allows you to add a new activity to the collection.
      */
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-
+        addActivityFrame addFrame = new addActivityFrame();
+        addFrame.setParent(this);
+        addFrame.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed
-
+    /**
+     * Allows the add-activity frame to communicate with this one.
+     * @param activity 
+     */
+    public void addActivityFromDialogue(Activity activity){
+        activities.add(activity);
+        Collections.sort(activities);
+        reloadView();
+    }
     /**
      * Allows you to remove the currently selected row (in log view) from the collection of activities. 
      */

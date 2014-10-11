@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -30,13 +30,15 @@
                   <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="dateField" linkSize="4" alignment="2" pref="153" max="32767" attributes="0"/>
                   <Component id="activityNameField" linkSize="4" alignment="2" max="32767" attributes="0"/>
-                  <Component id="hoursOfActivity" linkSize="4" alignment="2" min="-2" pref="145" max="-2" attributes="0"/>
+                  <Component id="timeOfDay" linkSize="4" alignment="2" min="-2" pref="145" max="-2" attributes="0"/>
                   <Group type="102" alignment="2" attributes="0">
                       <Component id="saveButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="clearButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="hoursOfActivity" linkSize="4" alignment="2" min="-2" pref="145" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
@@ -56,13 +58,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="timeOfDay" linkSize="2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="hoursOfActivity" linkSize="2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="clearButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -75,7 +81,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Date in MMM dd yyyy format (between Oct 29 2014 and Sep 19 2014)"/>
+        <Property name="text" type="java.lang.String" value="Date in MMM dd yyyy format (between Sep 29 2014 and Oct 19 2014)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -87,23 +93,45 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="activityNameFieldActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="activityNameField.getDocument().addDocumentListener(new DocumentListener() {&#xa;  public void changedUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void removeUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void insertUpdate(DocumentEvent e) {&#xa;    nameEntered = true;&#xa;  }&#xa;  });"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Length of time, in hours, that you did your activity"/>
+        <Property name="text" type="java.lang.String" value="Time of day that you did your activity (e.g., 5:00AM)"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hoursOfActivity">
+    <Component class="javax.swing.JTextField" name="timeOfDay">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeOfDayActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="timeOfDay.getDocument().addDocumentListener(new DocumentListener() {&#xa;  public void changedUpdate(DocumentEvent e) {&#xa;    &#xa;  }&#xa;  public void removeUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void insertUpdate(DocumentEvent e) {&#xa;  timeEntered = true;&#xa;  }&#xa;  });"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="saveButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="clearButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clear"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Length of time, in hours, that you did your activity (e.g., 1 hour)"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="hoursOfActivity">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="hoursOfActivity.getDocument().addDocumentListener(new DocumentListener() {&#xa;  public void changedUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void removeUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void insertUpdate(DocumentEvent e) {&#xa;    hoursEntered = true;&#xa;  }&#xa;  });"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
