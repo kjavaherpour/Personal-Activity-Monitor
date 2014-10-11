@@ -21,6 +21,9 @@ public final class mainFrame extends javax.swing.JFrame {
      * Creates new form mainFrame
      */
     public mainFrame(){
+        
+        
+        //None of this happens until password is typed correctly
         arrayListLoader();
         logViewLoader();
         initComponents();
@@ -78,11 +81,21 @@ public final class mainFrame extends javax.swing.JFrame {
     /**
     * Loads data from the Activities ArrayList into a dayview table model for the JTable.
     */
-    public void dayViewLoader(){       
-        LeftButton.setEnabled(true);
-        RightButton.setEnabled(true);
+    public void dayViewLoader(){ 
+        if(!activities.isEmpty()){
+            LeftButton.setEnabled(true);
+            RightButton.setEnabled(true);
+        }
+        if(activities.isEmpty()){
+            LeftButton.setEnabled(false);
+            RightButton.setEnabled(false);
+        }
         removeButton.setEnabled(false);
+        if(currentDate != null)
         setTitle(new SimpleDateFormat("EEE, MMM dd yyyy").format(currentDate));
+        else if(!activities.isEmpty()){
+            currentDate = activities.get(0).getDate();
+        }
         String[] col = {"Activity", "Time", "Length Of Time"};
         tableModel = new DefaultTableModel(col, 0);
         for(Activity activity: activities){
@@ -108,8 +121,14 @@ public final class mainFrame extends javax.swing.JFrame {
      * Kind of hacky.
     */
     public void weekViewLoader(){
-        LeftButton.setEnabled(true);
-        RightButton.setEnabled(true);
+        if(!activities.isEmpty()){
+            LeftButton.setEnabled(true);
+            RightButton.setEnabled(true);
+        }
+        if(activities.isEmpty()){
+            LeftButton.setEnabled(false);
+            RightButton.setEnabled(false);
+        }
         removeButton.setEnabled(false);
         if(weekNumber == 1) setTitle("Week of Sep 29 - Oct 5");
         else if(weekNumber == 2) setTitle("Week of Oct 6 - Oct 12");
@@ -230,17 +249,9 @@ public final class mainFrame extends javax.swing.JFrame {
             
             bufferedReader = new BufferedReader(new FileReader(file));
             String line; 
-//            if(bufferedReader.readLine() == null){
-//                    JOptionPane.showMessageDialog(this, "Please add an activity");
-//                    addActivityFrame addFrame = new addActivityFrame();
-//                    addFrame.setVisible(true);
-//                    Activity test = new Activity();
-//                    test.setName("Hiking");
-//                    test.setDayOfWeek('M');
-//                    test.setLengthOfTime("1 hour");
-//                    test.setDate(currentDate);
-//                    activities.add(test);
-//            }else{
+            if(bufferedReader.readLine() == null){
+                    JOptionPane.showMessageDialog(this, "Please add an activity");
+            }
                 while( (line = bufferedReader.readLine())!= null ){ //Line by line, each is a row.
                 String[] activity = line.split(",");
                 Activity act = new Activity();
@@ -255,13 +266,14 @@ public final class mainFrame extends javax.swing.JFrame {
             }
             bufferedReader.close();
         }
-        
         catch(IOException | ParseException | NumberFormatException e){
         }
-        Collections.sort(activities);
-        currentDate = activities.get(0).getDate();
-        firstDate = activities.get(0).getDate();
-        lastDate = activities.get(activities.size()-1).getDate();
+        if(!activities.isEmpty()){
+            Collections.sort(activities);
+            currentDate = activities.get(0).getDate();
+            firstDate = activities.get(0).getDate();
+            lastDate = activities.get(activities.size()-1).getDate();
+        }
     }
     
     public void saveFile(){
@@ -618,23 +630,23 @@ public final class mainFrame extends javax.swing.JFrame {
         authorFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         authorFrame.setVisible(true);
         authorFrame.setSize(400,400);
-        
-        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
-        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
-        
-        JLabel rickyPic = new JLabel(ricky);
-        JLabel kamPic = new JLabel(kam);
-        
-        rickyPic.setVisible(true);
-        kamPic.setVisible(true);
-        rickyPic.setPreferredSize(new Dimension(300,100));
-        kamPic.setPreferredSize(new Dimension(300,100));
-        
-        
-        authorFrame.add(rickyPic);
-        authorFrame.add(kamPic);
-        
-        
+//        
+//        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
+//        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
+//        
+//        JLabel rickyPic = new JLabel(ricky);
+//        JLabel kamPic = new JLabel(kam);
+//        
+//        rickyPic.setVisible(true);
+//        kamPic.setVisible(true);
+//        rickyPic.setPreferredSize(new Dimension(300,100));
+//        kamPic.setPreferredSize(new Dimension(300,100));
+//        
+//        
+//        authorFrame.add(rickyPic);
+//        authorFrame.add(kamPic);
+//        
+//        
         JTextArea authorArea = new JTextArea("Authors: Ricky Sidhu, Kamron Javaherpour\n"
                 + "Design and Development: Ricky Sidhu, Kamron Javaherpour\n"
                 + "Implementation and Testing: Ricky Sidhu, Kamron Javaherpour\n"
