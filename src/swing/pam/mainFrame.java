@@ -315,25 +315,26 @@ public final class mainFrame extends javax.swing.JFrame {
         
         activities = new ArrayList<>();
         BufferedReader bufferedReader = null;
-        File file = new File("data.txt");
         
         try{
             
-            bufferedReader = new BufferedReader(new FileReader(file));
+            bufferedReader = new BufferedReader(new FileReader(new File("data/data.txt")));
             String line; 
             if(bufferedReader.readLine() == null){
                     JOptionPane.showMessageDialog(this, "Please add an activity");
             }
-            else bufferedReader = new BufferedReader(new FileReader(file)); //Re-open the file to start from the beginning
+            else bufferedReader = new BufferedReader(new FileReader(new File("data/data.txt"))); //Re-open the file to start from the beginning
             while( (line = bufferedReader.readLine())!= null ){ //Line by line, each is a row.
                 String[] activity = line.split(",");
+                System.out.println(line);
                 Activity act = new Activity();
                 act.setName(activity[0]);
                 act.setDate(new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(activity[1]));
                 act.setTime(activity[2]);
                 act.setDayOfWeek(activity[3].charAt(0));
-                act.setLengthOfTime(Integer.parseInt(activity[4]));
+                act.setLengthOfTime(Double.parseDouble(activity[4]));
                 act.setWeekNumber(Integer.parseInt(activity[5]));
+                System.out.println(act);
                 activities.add(act);
                 //tableModel.addRow(activity);
             }
@@ -351,7 +352,7 @@ public final class mainFrame extends javax.swing.JFrame {
     
     public void saveFile(){
         try{
-        FileWriter out = new FileWriter("data.txt");
+        FileWriter out = new FileWriter(new File("data/data.txt"));
         for(Activity activity : activities){
             String text = activity.toString() + "\r\n";
             out.write(text);
