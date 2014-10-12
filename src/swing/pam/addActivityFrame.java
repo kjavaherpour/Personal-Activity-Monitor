@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package swing.testing;
+package swing.pam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,8 +18,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
- *
- * @author Ricky
+ * @author Ricky Sidhu
+ * @author Kamron Javaherpour
  */
 public class addActivityFrame extends javax.swing.JFrame {
 
@@ -42,10 +42,10 @@ public class addActivityFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateField = new javax.swing.JTextField();
+        activityNameField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        activityNameField = new javax.swing.JTextField();
+        dateField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         timeOfDay = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
@@ -55,19 +55,19 @@ public class addActivityFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        dateField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Date in MMM dd yyyy format (between Sep 29 2014 and Oct 19 2014)");
-
-        jLabel2.setText("The name of your activity");
-
         activityNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 activityNameFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("The name of your activity");
+
+        jLabel2.setText("Date in MMM dd yyyy format (between Sep 29 2014 and Oct 19 2014");
+
+        dateField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateFieldActionPerformed(evt);
             }
         });
 
@@ -103,7 +103,7 @@ public class addActivityFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Length of time, in hours, that you did your activity (e.g., 1 hour)");
+        jLabel4.setText("Length of time, in hours, that you did your activity (e.g., .5, 1, 2)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,8 +114,8 @@ public class addActivityFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel3)
                     .addComponent(jLabel1)
-                    .addComponent(dateField, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                    .addComponent(activityNameField)
+                    .addComponent(activityNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addComponent(dateField)
                     .addComponent(timeOfDay, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(saveButton)
@@ -124,7 +124,7 @@ public class addActivityFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(hoursOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {activityNameField, dateField, hoursOfActivity, timeOfDay});
@@ -135,11 +135,11 @@ public class addActivityFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(activityNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(activityNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,7 +157,7 @@ public class addActivityFrame extends javax.swing.JFrame {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {activityNameField, dateField, hoursOfActivity, timeOfDay});
 
-        activityNameField.getDocument().addDocumentListener(new DocumentListener() {
+        dateField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
             }
             public void removeUpdate(DocumentEvent e) {
@@ -179,13 +179,13 @@ public class addActivityFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateFieldActionPerformed
-
     private void activityNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activityNameFieldActionPerformed
-        nameEntered = true;
+        // TODO add your handling code here:
     }//GEN-LAST:event_activityNameFieldActionPerformed
+
+    private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
+        nameEntered = true;
+    }//GEN-LAST:event_dateFieldActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         boolean dateFormat = false, dateRange = false;
@@ -247,7 +247,7 @@ public class addActivityFrame extends javax.swing.JFrame {
             if(dateFormat && dateRange && nameEntered && timeEntered && hoursEntered){
                 newActivity.setName(activityNameField.getText());
                 newActivity.setTime(timeOfDay.getText());
-                newActivity.setLengthOfTime(hoursOfActivity.getText()); 
+                newActivity.setLengthOfTime(Double.valueOf(hoursOfActivity.getText())); 
                 parentFrame.addActivityFromDialogue(newActivity);
                 this.dispose();
                 //send up the activity
@@ -264,10 +264,10 @@ public class addActivityFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_timeOfDayActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
-        dateField.setText("");
+        activityNameField.setText("");
         timeOfDay.setText("");
         hoursOfActivity.setText("");
-        activityNameField.setText("");
+        dateField.setText("");
         
     }//GEN-LAST:event_clearButtonActionPerformed
 

@@ -1,4 +1,4 @@
-package swing.testing;
+package swing.pam;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -11,7 +11,7 @@ public class Activity implements Comparable<Activity>{
     private Date date;
     private String time;
     private char dayOfWeek;
-    private String lengthOfTime;
+    private double lengthOfTime;
     private int weekNumber;
     
     public String toString(){
@@ -68,11 +68,11 @@ public class Activity implements Comparable<Activity>{
         this.dayOfWeek = dayOfWeek;
     }
 
-    public String getLengthOfTime() {
+    public double getLengthOfTime() {
         return lengthOfTime;
     }
 
-    public void setLengthOfTime(String lengthOfTime) {
+    public void setLengthOfTime(double lengthOfTime) {
         this.lengthOfTime = lengthOfTime;
     }
 }

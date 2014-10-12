@@ -28,8 +28,8 @@
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="dateField" linkSize="4" alignment="2" pref="153" max="32767" attributes="0"/>
-                  <Component id="activityNameField" linkSize="4" alignment="2" max="32767" attributes="0"/>
+                  <Component id="activityNameField" linkSize="4" alignment="2" pref="153" max="32767" attributes="0"/>
+                  <Component id="dateField" linkSize="4" alignment="2" max="32767" attributes="0"/>
                   <Component id="timeOfDay" linkSize="4" alignment="2" min="-2" pref="145" max="-2" attributes="0"/>
                   <Group type="102" alignment="2" attributes="0">
                       <Component id="saveButton" min="-2" max="-2" attributes="0"/>
@@ -40,7 +40,7 @@
                   <Component id="jLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="hoursOfActivity" linkSize="4" alignment="2" min="-2" pref="145" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -50,11 +50,11 @@
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="dateField" linkSize="2" min="-2" pref="28" max="-2" attributes="0"/>
+              <Component id="activityNameField" linkSize="2" min="-2" pref="28" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="activityNameField" linkSize="2" min="-2" pref="29" max="-2" attributes="0"/>
+              <Component id="dateField" linkSize="2" min="-2" pref="29" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -74,27 +74,27 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="dateField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateFieldActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Date in MMM dd yyyy format (between Sep 29 2014 and Oct 19 2014)"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="The name of your activity"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="activityNameField">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="activityNameFieldActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="The name of your activity"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Date in MMM dd yyyy format (between Sep 29 2014 and Oct 19 2014"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="dateField">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateFieldActionPerformed"/>
+      </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="activityNameField.getDocument().addDocumentListener(new DocumentListener() {&#xa;  public void changedUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void removeUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void insertUpdate(DocumentEvent e) {&#xa;    nameEntered = true;&#xa;  }&#xa;  });"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="dateField.getDocument().addDocumentListener(new DocumentListener() {&#xa;  public void changedUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void removeUpdate(DocumentEvent e) {&#xa;  }&#xa;  public void insertUpdate(DocumentEvent e) {&#xa;    nameEntered = true;&#xa;  }&#xa;  });"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -128,7 +128,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Length of time, in hours, that you did your activity (e.g., 1 hour)"/>
+        <Property name="text" type="java.lang.String" value="Length of time, in hours, that you did your activity (e.g., .5, 1, 2)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="hoursOfActivity">

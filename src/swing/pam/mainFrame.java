@@ -1,4 +1,4 @@
-package swing.testing;
+package swing.pam;
 
 import java.awt.*;
 import java.io.*;
@@ -13,7 +13,6 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author Ricky Sidhu
  * @author Kamron Javaherpour
  */
@@ -29,23 +28,50 @@ public final class mainFrame extends javax.swing.JFrame {
         arrayListLoader();
         logViewLoader();
         initComponents();
+        getSummaries();
         viewState = 0;
         weekNumber = 1;
         LeftButton.setEnabled(false); //We load the logview before initcomponents,
         RightButton.setEnabled(false); //we need to disable the buttons somehow, and not before they've been instanced.
     }
-    
+    private void getSummaries(){
+        if(viewState == 0){ //Log View
+            double totalHours = 0;
+            //Line one: Total activities
+            summaryOne.setText("Activities logged: " + activities.size());
+            //Line two: total hours
+            for(Activity act: activities){
+                totalHours+=act.getLengthOfTime();
+            }
+            summaryTwo.setText("Hours logged: " + totalHours);
+        }
+        if(viewState == 1){ //Day View
+            int totalActivities = 0;
+            double totalHours = 0;
+            for(Activity act: activities){
+                if(act.getDate().equals(currentDate)){
+                    totalActivities++;
+                    totalHours+=act.getLengthOfTime();
+                }
+            }
+            //Line one: total activities
+            summaryOne.setText("Activities logged this day: " + totalActivities);
+            //Line two: total hours
+            summaryTwo.setText("Hours logged this day: " + totalHours);
+        }
+    }
     /**
      * Loads the log view, a list of all activities with all relevant stored information.
      */
     private void logViewLoader(){
         setTitle("Log View");
+        double totalHours = 0;
         if(LeftButton != null){ //If it's not the first time we're seeing the view
             LeftButton.setEnabled(false);
             RightButton.setEnabled(false);
             removeButton.setEnabled(true);
         }
-        String[] col = {"Activity", "Date", "Time", "Day Of Week", "Length Of Time"};
+        String[] col = {"Activity", "Date", "Time", "Day Of Week", "Hours Active"};
         tableModel = new DefaultTableModel(col, 0);
         for(Activity activity:activities){
             String[] tableRow = new String[5];
@@ -69,13 +95,14 @@ public final class mainFrame extends javax.swing.JFrame {
                 case 'U': tableRow[3]="Sunday";
                 break;             
             }
-            tableRow[4] = activity.getLengthOfTime();
+            tableRow[4] = Double.toString(activity.getLengthOfTime());
             tableModel.addRow(tableRow);
         }
         tableModel.fireTableDataChanged();
         tableModel.fireTableStructureChanged();
         if(jTable != null){ //DayTable is null when we first start the application, and this method is called before and after initcomponents().
             jTable.setModel(tableModel);
+            getSummaries();
         }
         repaint();
     }
@@ -98,17 +125,18 @@ public final class mainFrame extends javax.swing.JFrame {
         else if(!activities.isEmpty()){
             currentDate = activities.get(0).getDate();
         }
-        String[] col = {"Activity", "Time", "Length Of Time"};
+        String[] col = {"Activity", "Time", "Hours Active"};
         tableModel = new DefaultTableModel(col, 0);
         for(Activity activity: activities){
             if(currentDate.compareTo(activity.getDate()) == 0){
                 String[] rowItem = new String[3];
                 rowItem[0] = activity.getName();
                 rowItem[1] = activity.getTime();
-                rowItem[2] = activity.getLengthOfTime();
+                rowItem[2] = Double.toString(activity.getLengthOfTime());
                 tableModel.addRow(rowItem);
             }
         }
+        getSummaries();
         tableModel.fireTableDataChanged();
         tableModel.fireTableStructureChanged();
         if(jTable != null){ //DayTable is null when we first start the application, and this method is called before and after initcomponents().
@@ -118,7 +146,8 @@ public final class mainFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Loads data from the Activities ArrayList into a dayview table model for the JTable.
+     * Loads data from the Activities ArrayList into a dayview table model 
+     * for the JTable. Then, sets the summaries.
      * 
      * Kind of hacky.
     */
@@ -146,7 +175,14 @@ public final class mainFrame extends javax.swing.JFrame {
         ArrayList<Activity> friday = new ArrayList<>();
         ArrayList<Activity> saturday = new ArrayList<>();
         ArrayList<Activity> sunday = new ArrayList<>();
-        ArrayList[] week = {monday, tuesday, wednesday, thursday, friday, saturday, sunday};
+        ArrayList<ArrayList<Activity>> week = new ArrayList<ArrayList<Activity>>();
+        week.add(monday);
+        week.add(tuesday);
+        week.add(wednesday);
+        week.add(thursday);
+        week.add(friday);
+        week.add(saturday);
+        week.add(sunday);
         
         //Populate the columns
         for(Activity activity: activities){
@@ -205,6 +241,47 @@ public final class mainFrame extends javax.swing.JFrame {
             
             tableModel.addRow(rowData);
         }
+        //Setting summaries from here since passing 
+        //an arraylist of arraylists of activities is nigh impossible.
+        //sorry it's so ugly!
+        int totalActivities = 0;
+        double totalHours = 0;
+        for(Activity act: monday){
+            totalActivities++;
+            totalHours += act.getLengthOfTime();
+        }
+        for(Activity act: tuesday){
+            totalActivities++;
+            totalHours += act.getLengthOfTime();
+        }
+        for(Activity act: wednesday){
+            totalActivities++;
+            totalHours += act.getLengthOfTime();
+        }
+        for(Activity act: thursday){
+            totalActivities++;
+            totalHours += act.getLengthOfTime();
+        }
+        for(Activity act: friday){
+            totalActivities++;
+            totalHours += act.getLengthOfTime();
+        }
+        for(Activity act: saturday){
+            totalActivities++;
+            totalHours += act.getLengthOfTime();
+        }
+        for(Activity act: sunday){
+            totalActivities++;
+            totalHours += act.getLengthOfTime();
+        }
+        
+        //Set the summary lines
+        //Line one: total activities
+        summaryOne.setText("Activities logged this week: " + totalActivities);
+        //Line two: total hours
+        summaryTwo.setText("Hours logged this week: " + totalHours);
+        
+        //Update the table
         tableModel.fireTableDataChanged();
         tableModel.fireTableStructureChanged();
         if(jTable != null) //on first run, this is run before DayTable is instantiated
@@ -255,7 +332,7 @@ public final class mainFrame extends javax.swing.JFrame {
                 act.setDate(new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(activity[1]));
                 act.setTime(activity[2]);
                 act.setDayOfWeek(activity[3].charAt(0));
-                act.setLengthOfTime(activity[4]);
+                act.setLengthOfTime(Integer.parseInt(activity[4]));
                 act.setWeekNumber(Integer.parseInt(activity[5]));
                 activities.add(act);
                 //tableModel.addRow(activity);
@@ -348,7 +425,7 @@ public final class mainFrame extends javax.swing.JFrame {
                     logViewLoader();
                 }  
                 else if(column == 4){
-                    activities.get(row).setLengthOfTime((String) tableModel.getValueAt(row, column));
+                    activities.get(row).setLengthOfTime((int) tableModel.getValueAt(row, column));
                 }
             }
             catch(ParseException e){
@@ -394,6 +471,8 @@ public final class mainFrame extends javax.swing.JFrame {
         addButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
+        summaryOne = new javax.swing.JLabel();
+        summaryTwo = new javax.swing.JLabel();
         myMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         editMenu = new javax.swing.JMenu();
@@ -488,6 +567,10 @@ public final class mainFrame extends javax.swing.JFrame {
             }
         });
 
+        summaryOne.setText("Summary Info 1");
+
+        summaryTwo.setText("Summary Info 2");
+
         fileMenu.setText("File");
         myMenuBar.add(fileMenu);
 
@@ -523,12 +606,20 @@ public final class mainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(LeftButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RightButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(LeftButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(RightButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(summaryTwo)
+                            .addComponent(summaryOne))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -549,16 +640,15 @@ public final class mainFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(LeftButton)
                             .addComponent(RightButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
                         .addComponent(logButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dayViewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -567,11 +657,15 @@ public final class mainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(diaryButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(removeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveButton)))
+                        .addComponent(addButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(removeButton)
+                    .addComponent(summaryOne))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveButton)
+                    .addComponent(summaryTwo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -692,6 +786,7 @@ public final class mainFrame extends javax.swing.JFrame {
     public void addActivityFromDialogue(Activity activity){
         activities.add(activity);
         Collections.sort(activities);
+        firstDate = activities.get(0).getDate();
         reloadView();
     }
     /**
@@ -842,6 +937,8 @@ public final class mainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar myMenuBar;
     private javax.swing.JButton removeButton;
     private javax.swing.JButton saveButton;
+    private javax.swing.JLabel summaryOne;
+    private javax.swing.JLabel summaryTwo;
     private javax.swing.JMenuItem usageMenuItem;
     private javax.swing.JButton weekViewButton;
     // End of variables declaration//GEN-END:variables

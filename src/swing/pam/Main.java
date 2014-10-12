@@ -1,4 +1,4 @@
-package swing.testing;
+package swing.pam;
 
 import java.io.BufferedReader;
 import java.io.File;

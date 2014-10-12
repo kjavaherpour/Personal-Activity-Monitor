@@ -1,4 +1,4 @@
-package swing.testing;
+package swing.pam;
 
 import java.io.*;
 import java.nio.*;
@@ -22,7 +22,7 @@ public class JEditorPaneSave implements ActionListener {
       myPane.setContentType("text/plain");
       myFrame.setContentPane(myPane);
       try{
-      FileReader in = new FileReader("diary.txt");
+      FileReader in = new FileReader(new File("data/diary.txt"));
             char[] buffer = new char[1024];
             int n = in.read(buffer);
             String text = new String(buffer, 0, n);
@@ -59,14 +59,14 @@ public class JEditorPaneSave implements ActionListener {
       String cmd = ((AbstractButton) e.getSource()).getText();
       try {
          if (cmd.equals("Open")) {
-            FileReader in = new FileReader("diary.txt");
+            FileReader in = new FileReader(new File("data/diary.txt"));
             char[] buffer = new char[1024];
             int n = in.read(buffer);
             String text = new String(buffer, 0, n);
             myPane.setText(text);
             in.close();
          } else if (cmd.equals("Save")) {
-            FileWriter out = new FileWriter("diary.txt");
+            FileWriter out = new FileWriter(new File("data/diary.txt"));
             out.write(myPane.getText());
             out.close();
          }
