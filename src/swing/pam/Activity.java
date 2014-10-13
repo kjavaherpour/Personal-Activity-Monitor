@@ -2,7 +2,7 @@ package swing.pam;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
- *
+ * A class that contains information about an individual activity.
  * @author Ricky Sidhu
  * @author Kamron Javaherpour
  */

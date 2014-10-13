@@ -1,25 +1,9 @@
-/*
- * Copyright (C) 2014 Ricky
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
 package swing.pam;
 
 /**
- *
- * @author Ricky
+ * A frame for viewing the authors.
+ * @author Ricky Sidhu
+ * @author Kamron Javaherpour
  */
 public class AuthorFrame extends javax.swing.JFrame {
 
@@ -51,6 +35,9 @@ public class AuthorFrame extends javax.swing.JFrame {
         jLabel1.setText("Ricky Sidhu");
 
         jLabel2.setText("Kamron Javaherpour");
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(javax.swing.UIManager.getDefaults().getColor("ColorChooser.background"));

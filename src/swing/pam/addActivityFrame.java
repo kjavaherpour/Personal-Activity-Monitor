@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package swing.pam;
 
 import java.text.ParseException;
@@ -18,15 +12,16 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
+ * A Frame for adding an activity to our data.
  * @author Ricky Sidhu
  * @author Kamron Javaherpour
  */
-public class addActivityFrame extends javax.swing.JFrame {
+public class AddActivityFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form addActivityFrame
      */
-    public addActivityFrame() {
+    public AddActivityFrame() {
         initComponents();
     }
     
@@ -187,7 +182,10 @@ public class addActivityFrame extends javax.swing.JFrame {
     private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
         nameEntered = true;
     }//GEN-LAST:event_dateFieldActionPerformed
-
+/**
+ * Validates the input given, and if correct, adds it to our main list of activities.
+ * @param evt 
+ */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         boolean dateFormat = false, dateRange = false;
         newActivity = new Activity();
@@ -289,20 +287,21 @@ public class addActivityFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addActivityFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddActivityFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addActivityFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddActivityFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addActivityFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddActivityFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addActivityFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddActivityFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addActivityFrame().setVisible(true);
+                new AddActivityFrame().setVisible(true);
             }
         });
     }

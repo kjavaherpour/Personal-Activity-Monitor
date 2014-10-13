@@ -13,6 +13,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * The main view of our PAM.
  * @author Ricky Sidhu
  * @author Kamron Javaherpour
  */
@@ -665,7 +666,7 @@ public final class MainFrame extends javax.swing.JFrame {
  */
     private void diaryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diaryButtonActionPerformed
         if (evt.getSource() == diaryButton){
-            JEditorPaneSave jdiary = new JEditorPaneSave();
+            DiaryFrame jdiary = new DiaryFrame();
             jdiary.run();
         }
     }//GEN-LAST:event_diaryButtonActionPerformed
@@ -745,7 +746,7 @@ public final class MainFrame extends javax.swing.JFrame {
      * From within any view, this allows you to add a new activity to the collection.
      */
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        addActivityFrame addFrame = new addActivityFrame();
+        AddActivityFrame addFrame = new AddActivityFrame();
         addFrame.setParent(this);
         addFrame.setLocationByPlatform(true);
         addFrame.setVisible(true);

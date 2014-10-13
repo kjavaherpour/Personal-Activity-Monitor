@@ -4,13 +4,19 @@ import java.io.*;
 import java.nio.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class JEditorPaneSave implements ActionListener {
+
+/**
+ * A Frame for the persistent diary.
+ * @author Kamron Javaherpour
+ * @author Ricky Sidhu
+ */
+public class DiaryFrame implements ActionListener {
     
    JFrame myFrame = null;
    JEditorPane myPane = null;
    
    public static void main(String[] a) {
-      (new JEditorPaneSave()).run();
+      (new DiaryFrame()).run();
    }
    
    public void run() {
