@@ -475,8 +475,6 @@ public final class mainFrame extends javax.swing.JFrame {
         summaryOne = new javax.swing.JLabel();
         summaryTwo = new javax.swing.JLabel();
         myMenuBar = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        editMenu = new javax.swing.JMenu();
         aboutMenu = new javax.swing.JMenu();
         usageMenuItem = new javax.swing.JMenuItem();
         authorMenuItem = new javax.swing.JMenuItem();
@@ -571,12 +569,6 @@ public final class mainFrame extends javax.swing.JFrame {
         summaryOne.setText("Summary Info 1");
 
         summaryTwo.setText("Summary Info 2");
-
-        fileMenu.setText("File");
-        myMenuBar.add(fileMenu);
-
-        editMenu.setText("Edit");
-        myMenuBar.add(editMenu);
 
         aboutMenu.setText("About");
 
@@ -930,8 +922,6 @@ public final class mainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem authorMenuItem;
     private javax.swing.JButton dayViewButton;
     private javax.swing.JButton diaryButton;
-    private javax.swing.JMenu editMenu;
-    private javax.swing.JMenu fileMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JButton logButton;
