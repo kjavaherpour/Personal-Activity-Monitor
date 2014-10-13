@@ -1,0 +1,72 @@
+\documentclass[12pt,a4paper]{article} % Font size (can be 10pt, 11pt or 12pt) and paper size (remove a4paper for US letter paper)
+
+\usepackage[protrusion=true,expansion=true]{microtype} % Better typography
+\usepackage{graphicx} % Required for including pictures
+\usepackage{wrapfig} % Allows in-line images
+\usepackage{fullpage}
+\usepackage{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Required for accented characters
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{sectsty} % Allows customizing section commands
+\usepackage[hmargin=1in,vmargin=1in]{geometry}
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{moreverb}
+\usepackage{verbatim}
+\usepackage{moreverb}
+\let\verbatiminput=\verbatimtabinput
+\usepackage{enumerate}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+\usepackage{fancyhdr} % Custom headers and footers
+\newlength{\drop}
+\linespread{1.05} % Change line spacing here, Palatino benefits from a slight increase by default
+\makeatletter
+\renewcommand\@biblabel[1]{\textbf{#1.}} % Change the square brackets for each bibliography item from '[1]' to '1.'
+\renewcommand{\@listI}{\itemsep=0pt} % Reduce the space between items in the itemize and enumerate environments and the bibliography
+
+\renewcommand{\maketitle}{ % Customize the title - do not edit title and author name here, see the TITLE block below
+\begin{flushright} % Right align
+{\LARGE\@title} % Increase the font size of the title
+
+\vspace{50pt} % Some vertical space between the title and author name
+
+{\large\@author} % Author name
+
+\vspace{40pt} % Some vertical space between the author block and body
+\end{flushright}
+}
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+\title{\textbf{Personal Activity Monitor}}
+
+\author{\textsc{Ricky Sidhu \\ Kamron Javaherpour} % Author
+\\{\textit{Barnes' Comp 585}}} % Institution
+
+\date{\today} % Date
+
+%----------------------------------------------------------------------------------------
+%	COVER
+%----------------------------------------------------------------------------------------
+
+
+\begin{document}
+\doublespacing
+\maketitle % Print the title section
+
+%----------------------------------------------------------------------------------------
+%	ESSAY BODY
+%----------------------------------------------------------------------------------------
+\section*{Running The Application}
+Extract the entire directory titled ``Personal Activity Monitor''. Upon doing so, running the jar is sufficient for reviewing the functionality of the application. Otherwise, the source code may be imported into NetBeans, assuming the data folder is in the root directory of the project.
+
+\section*{Documentation}
+Documentation is available in the doc folder, in two forms, as well as some screenshots in the screenshot folder. In the doc folder you will find an IDE-generated javadoc and diagrams as specified in the spec for this project.
+\end{document}
