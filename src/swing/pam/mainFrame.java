@@ -847,7 +847,11 @@ public final class mainFrame extends javax.swing.JFrame {
                 + " the personal activity monitor. It is also the best representation of the"
                 + " format the data is stored in.\n\n"
                 + "The diary allows you to take notes, or write about your experiences using the Activity Monitor."
-                + " It saves your entry, and opens it when it is ready to be edited.");
+                + " It saves your entry, and opens it when it is ready to be edited.\n\n"
+                + "To remove an activity, you must be in the log view. This will clear the activity completely.\n\n"
+                + "To add an activity, click the Add button and fill in the appropriate fields. All fields are required.\n\n"
+                + "To edit an activity from any view, double click the table cell and make the proper edits.\n\n"
+                + "To save any changes, you must click save before closing, or changes will be lost.\n\n");
         
         aboutArea.setVisible(true); 
         aboutArea.setEditable(false);
