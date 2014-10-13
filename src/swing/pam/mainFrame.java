@@ -851,7 +851,8 @@ public final class MainFrame extends javax.swing.JFrame {
                 + "To remove an activity, you must be in the log view. This will clear the activity completely.\n\n"
                 + "To add an activity, click the Add button and fill in the appropriate fields. All fields are required.\n\n"
                 + "To edit an activity from any view, double click the table cell and make the proper edits.\n\n"
-                + "To save any changes, you must click save before closing, or changes will be lost.\n\n");
+                + "To save any changes, you must click save before closing, or changes will be lost.\n\n"
+                + "NOTE: Editing only works in LOG VIEW.");
         
         aboutArea.setVisible(true); 
         aboutArea.setEditable(false);
