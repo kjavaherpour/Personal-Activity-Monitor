@@ -837,7 +837,7 @@ public final class MainFrame extends javax.swing.JFrame {
         aboutFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         aboutFrame.setLocationByPlatform(true);
         aboutFrame.setVisible(true);
-        aboutFrame.setSize(400,400);
+        aboutFrame.setSize(400,500);
         
         JTextArea aboutArea = new JTextArea("Personal Activity Monitor, version 0.1\n\n"
                 + "The previous and next buttons let you browse between different days, or weeks,"
@@ -850,7 +850,7 @@ public final class MainFrame extends javax.swing.JFrame {
                 + " It saves your entry, and opens it when it is ready to be edited.\n\n"
                 + "To remove an activity, you must be in the log view. This will clear the activity completely.\n\n"
                 + "To add an activity, click the Add button and fill in the appropriate fields. All fields are required.\n\n"
-                + "To edit an activity from any view, double click the table cell and make the proper edits.\n\n"
+                + "To edit an activity you must be in the Log View, double click the table cell and make the proper edits.\n\n"
                 + "To save any changes, you must click save before closing, or changes will be lost.\n\n");
         
         aboutArea.setVisible(true); 
