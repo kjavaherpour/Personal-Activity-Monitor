@@ -30,7 +30,7 @@ public class addActivityFrame extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void setParent(mainFrame mf){
+    public void setParent(MainFrame mf){
         parentFrame = mf;
     }
     /**
@@ -323,5 +323,5 @@ public class addActivityFrame extends javax.swing.JFrame {
     private boolean nameEntered = false;
     private boolean timeEntered = false;
     private boolean hoursEntered = false;
-    public mainFrame parentFrame;
+    public MainFrame parentFrame;
 }

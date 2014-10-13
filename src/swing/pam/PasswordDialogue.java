@@ -82,7 +82,7 @@ private Main parent;
     }
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         if(pass.compareTo(new String(passwordField.getPassword())) == 0){
-            mainFrame mf = new mainFrame();
+            MainFrame mf = new MainFrame();
             mf.setLocationByPlatform(true);
             mf.setVisible(true);
             this.dispose();
