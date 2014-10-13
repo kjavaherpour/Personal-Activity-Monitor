@@ -784,50 +784,10 @@ public final class MainFrame extends javax.swing.JFrame {
      */
     private void launchAuthor(){
         
-        JFrame authorFrame = new JFrame("Author");
-        authorFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        AuthorFrame authorFrame = new AuthorFrame();
         authorFrame.setLocationByPlatform(true);
         authorFrame.setVisible(true);
-        authorFrame.setSize(400,400);
-//        
-//        ImageIcon ricky = createImageIcon("ricky.png", "Ricky Sidhu");
-//        ImageIcon kam = createImageIcon("kam.png", "Kamron Javaherpour");
-//        
-//        JLabel rickyPic = new JLabel(ricky);
-//        JLabel kamPic = new JLabel(kam);
-//        
-//        rickyPic.setVisible(true);
-//        kamPic.setVisible(true);
-//        rickyPic.setPreferredSize(new Dimension(300,100));
-//        kamPic.setPreferredSize(new Dimension(300,100));
-//        
-//        
-//        authorFrame.add(rickyPic);
-//        authorFrame.add(kamPic);
-//        
-//        
-        JTextArea authorArea = new JTextArea("Authors: Ricky Sidhu, Kamron Javaherpour\n"
-                + "Design and Development: Ricky Sidhu, Kamron Javaherpour\n"
-                + "Implementation and Testing: Ricky Sidhu, Kamron Javaherpour\n"
-                + "Contact: ricky@dearsaturn.com kam.javaherpour@gmail.com");
-        authorArea.setVisible(true); 
-        authorArea.setEditable(false);
-        authorArea.setLineWrap(true);
-        authorArea.setWrapStyleWord(true);
-        
-        authorFrame.add(authorArea);
     }
-    
-    protected ImageIcon createImageIcon(String path, String description) {
-    java.net.URL imgURL = this.getClass().getResource(path);
-    
-    if (imgURL != null) {
-        return new ImageIcon(imgURL, description);
-    } else {
-        System.err.println("Couldn't find file: " + path);
-        return null;
-    }
-}
     /**
      * Details the application itself.
      */
