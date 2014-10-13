@@ -289,25 +289,6 @@ public final class mainFrame extends javax.swing.JFrame {
         repaint();
         
     }
-    
-    /**
-     * Password functionality for 1 user
-     * @param pwd
-     * @return true if the password was entered correctly.
-     */
-    private boolean isPasswordCorrect(char[] pwd){
-        
-        boolean isCorrect = false;
-        char[] correctPass = {'b', 'a', 'r', 'n', 'e', 's'};
-        
-        if(pwd.length != correctPass.length){
-            isCorrect = false;
-        }else{
-            isCorrect = Arrays.equals(pwd, correctPass);
-        }
-        Arrays.fill(correctPass, 'x');
-        return isCorrect;
-    }
     /**
      * Populates the ArrayList, our central data structure, with data from our text file.
      */
@@ -326,7 +307,6 @@ public final class mainFrame extends javax.swing.JFrame {
             else bufferedReader = new BufferedReader(new FileReader(new File("data/data.txt"))); //Re-open the file to start from the beginning
             while( (line = bufferedReader.readLine())!= null ){ //Line by line, each is a row.
                 String[] activity = line.split(",");
-                System.out.println(line);
                 Activity act = new Activity();
                 act.setName(activity[0]);
                 act.setDate(new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(activity[1]));
@@ -334,9 +314,7 @@ public final class mainFrame extends javax.swing.JFrame {
                 act.setDayOfWeek(activity[3].charAt(0));
                 act.setLengthOfTime(Double.parseDouble(activity[4]));
                 act.setWeekNumber(Integer.parseInt(activity[5]));
-                System.out.println(act);
                 activities.add(act);
-                //tableModel.addRow(activity);
             }
             bufferedReader.close();
         }

@@ -14,15 +14,10 @@ import javax.swing.*;
  * @author Kamron Javaherpour
  */
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws Exception{
         // TODO code application logic here
-        mainFrame mf = new mainFrame();
-        mf.setLocationByPlatform(true);
-        mf.setVisible(true);
+        PasswordDialogue pd = new PasswordDialogue();
+        pd.setLocationByPlatform(true);
+        pd.setVisible(true);
     }
-    
 }

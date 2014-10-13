@@ -166,6 +166,7 @@ public class addActivityFrame extends javax.swing.JFrame {
                 nameEntered = true;
             }
         });
+        this.getRootPane().setDefaultButton(saveButton);
         hoursOfActivity.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
             }
